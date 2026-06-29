@@ -1,0 +1,2998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pramuka SMK Khoiriyah Sumobito</title>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --tanah: #5c4a32;
+  --tanah-dark: #3d3120;
+  --khaki: #a98f5e;
+  --khaki-light: #d8c79f;
+  --krem: #f3ecd9;
+  --krem-soft: #faf6ea;
+  --merah: #a02334;
+  --merah-dark: #7a1a27;
+  --hijau: #4a6b3a;
+  --hijau-dark: #354f29;
+  --ink: #2b241a;
+  --ink-soft: #5a4f3d;
+  --gold: #c08a2e;
+  --white: #ffffff;
+
+  --font-display: 'Rajdhani', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 4px;
+  --shadow-cut: 4px 4px 0 var(--ink);
+}
+
+@font-face{
+  font-family:'Rajdhani';
+  src: local('Rajdhani');
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html,body{
+  font-family: var(--font-body);
+  background: var(--krem-soft);
+  color: var(--ink);
+  min-height:100vh;
+}
+
+body{
+  background-image:
+    radial-gradient(circle at 0 0, rgba(169,143,94,0.08) 0, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(92,74,50,0.02) 0px, rgba(92,74,50,0.02) 2px, transparent 2px, transparent 12px);
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-track{background:var(--krem);}
+::-webkit-scrollbar-thumb{background:var(--khaki); border-radius:5px;}
+
+/* ============ TOP BANNER ============ */
+.topbar{
+  background: var(--tanah);
+  background-image: linear-gradient(135deg, var(--tanah) 0%, var(--tanah-dark) 100%);
+  border-bottom: 6px solid var(--gold);
+  position: sticky; top:0; z-index:100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.topbar-inner{
+  max-width:1200px; margin:0 auto;
+  display:flex; align-items:center; gap:16px;
+  padding: 14px 20px;
+}
+.badge-emblem{
+  width:52px; height:52px; flex-shrink:0;
+  border-radius:50%;
+  background: var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  border:3px solid var(--krem-soft);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.badge-emblem svg{width:30px; height:30px;}
+.brand-text{flex:1; min-width:0;}
+.brand-text .eyebrow{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.15em;
+  color: var(--khaki-light);
+  text-transform:uppercase;
+}
+.brand-text h1{
+  font-family: var(--font-display);
+  font-weight:700;
+  font-size: 22px;
+  color: var(--krem-soft);
+  letter-spacing:.02em;
+  line-height:1.1;
+}
+.brand-text .sub{
+  font-size:12px; color: var(--khaki-light);
+}
+.topbar-stat{
+  text-align:right;
+  font-family:var(--font-mono);
+  color:var(--khaki-light);
+  font-size:11px;
+  display:none;
+}
+@media(min-width:640px){.topbar-stat{display:block;}}
+.topbar-stat strong{color:var(--krem-soft); font-size:16px; display:block; font-family:var(--font-display);}
+
+/* ============ NAV TABS ============ */
+.navwrap{
+  background: var(--krem);
+  border-bottom: 2px solid var(--khaki-light);
+  position: sticky; top:78px; z-index:99;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.navwrap::-webkit-scrollbar{display:none;}
+.nav{
+  max-width:1200px; margin:0 auto;
+  display:flex; gap:2px;
+  padding: 0 12px;
+}
+.nav-btn{
+  font-family: var(--font-display);
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.03em;
+  color: var(--ink-soft);
+  background:transparent;
+  border:none;
+  padding: 14px 16px 12px;
+  cursor:pointer;
+  white-space:nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all .15s;
+  display:flex; align-items:center; gap:6px;
+}
+.nav-btn:hover{color:var(--tanah); background: rgba(169,143,94,0.1);}
+.nav-btn.active{
+  color: var(--merah);
+  border-bottom-color: var(--merah);
+}
+.nav-btn svg{width:16px; height:16px; flex-shrink:0;}
+
+/* ============ MAIN LAYOUT ============ */
+main{
+  max-width:1200px; margin:0 auto;
+  padding: 24px 20px 80px;
+}
+.view{display:none;}
+.view.active{display:block; animation: fadein .25s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+.page-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:16px; margin-bottom:20px; flex-wrap:wrap;
+}
+.page-head .eyebrow{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.15em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:4px; display:block;
+}
+.page-head h2{
+  font-family:var(--font-display); font-size:28px; font-weight:700;
+  color:var(--tanah-dark);
+}
+.page-head p{color:var(--ink-soft); font-size:14px; margin-top:2px;}
+
+/* ============ BUTTONS ============ */
+.btn{
+  font-family:var(--font-display); font-weight:600; font-size:14px;
+  letter-spacing:.02em;
+  padding:10px 18px;
+  border:2px solid var(--ink);
+  border-radius:var(--radius);
+  cursor:pointer;
+  background:var(--white);
+  color:var(--ink);
+  box-shadow: var(--shadow-cut);
+  transition: transform .1s, box-shadow .1s;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.btn:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink);}
+.btn:active{transform:translate(0,0); box-shadow:1px 1px 0 var(--ink);}
+.btn-primary{background:var(--hijau); color:var(--krem-soft); border-color:var(--hijau-dark);}
+.btn-primary:hover{box-shadow:6px 6px 0 var(--hijau-dark);}
+.btn-primary:active{box-shadow:1px 1px 0 var(--hijau-dark);}
+.btn-accent{background:var(--merah); color:var(--krem-soft); border-color:var(--merah-dark);}
+.btn-accent:hover{box-shadow:6px 6px 0 var(--merah-dark);}
+.btn-sm{padding:6px 12px; font-size:12px; box-shadow:2px 2px 0 var(--ink);}
+.btn-sm:hover{transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--ink);}
+.btn-icon{padding:6px 8px; box-shadow:2px 2px 0 var(--ink);}
+.btn-ghost{background:transparent; box-shadow:none; border-color:var(--khaki);}
+.btn-ghost:hover{transform:none; box-shadow:none; background:var(--khaki-light);}
+.btn-danger{border-color:var(--merah-dark); color:var(--merah-dark);}
+.btn[disabled]{opacity:.4; cursor:not-allowed; transform:none !important; box-shadow:var(--shadow-cut) !important;}
+
+/* ============ CARDS ============ */
+.card{
+  background:var(--white);
+  border:2px solid var(--ink);
+  border-radius:var(--radius);
+  box-shadow: var(--shadow-cut);
+  padding:20px;
+}
+.grid{display:grid; gap:16px;}
+.grid-stats{grid-template-columns:repeat(auto-fit, minmax(150px,1fr));}
+.grid-2{grid-template-columns:repeat(auto-fit, minmax(320px,1fr));}
+
+.stat-card{
+  background:var(--tanah); color:var(--krem-soft);
+  border:2px solid var(--ink); border-radius:var(--radius);
+  box-shadow:var(--shadow-cut);
+  padding:16px; position:relative; overflow:hidden;
+}
+.stat-card.green{background:var(--hijau);}
+.stat-card.red{background:var(--merah);}
+.stat-card.gold{background:var(--gold); color:var(--ink);}
+.stat-card .num{font-family:var(--font-display); font-size:32px; font-weight:700; line-height:1;}
+.stat-card .lbl{font-size:12px; opacity:.85; margin-top:4px; text-transform:uppercase; letter-spacing:.05em;}
+
+/* ============ FORMS ============ */
+label{
+  display:block; font-size:12px; font-weight:600; color:var(--ink-soft);
+  margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em;
+}
+input, select, textarea{
+  width:100%;
+  font-family:var(--font-body);
+  font-size:14px;
+  padding:9px 11px;
+  border:2px solid var(--khaki-light);
+  border-radius:var(--radius);
+  background:var(--krem-soft);
+  color:var(--ink);
+  transition:border-color .15s;
+}
+input:focus, select:focus, textarea:focus{
+  outline:none; border-color:var(--hijau);
+}
+.field{margin-bottom:14px;}
+.field-row{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+
+/* ============ MODAL ============ */
+.modal-overlay{
+  display:none; position:fixed; inset:0; background:rgba(43,36,26,0.6);
+  z-index:200; align-items:center; justify-content:center; padding:20px;
+}
+.modal-overlay.active{display:flex;}
+.modal{
+  background:var(--krem-soft); border:2px solid var(--ink); border-radius:var(--radius);
+  box-shadow:8px 8px 0 var(--ink);
+  max-width:520px; width:100%; max-height:88vh; overflow-y:auto;
+  padding:24px;
+}
+.modal h3{font-family:var(--font-display); font-size:20px; color:var(--tanah-dark); margin-bottom:16px;}
+.modal-actions{display:flex; gap:10px; justify-content:flex-end; margin-top:18px;}
+
+/* ============ TABLE ============ */
+.table-wrap{
+  overflow-x:auto; border:2px solid var(--ink); border-radius:var(--radius);
+  background-image:
+    linear-gradient(to right, var(--white) 0%, transparent 2%),
+    linear-gradient(to left, var(--white) 0%, transparent 8%);
+  background-position: left, right;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%;
+  background-attachment: local, local;
+}
+@media(max-width:640px){
+  .table-wrap::after{
+    content:'⟷ geser untuk lihat selengkapnya';
+    display:block; text-align:center; font-size:11px; color:var(--ink-soft);
+    padding:4px; background:var(--krem); border-top:1px dashed var(--khaki-light);
+  }
+}
+table{width:100%; border-collapse:collapse; background:var(--white); min-width:600px;}
+th{
+  background:var(--tanah); color:var(--krem-soft);
+  font-family:var(--font-display); font-weight:600; font-size:12px;
+  text-transform:uppercase; letter-spacing:.04em;
+  text-align:left; padding:10px 12px; white-space:nowrap;
+}
+td{padding:10px 12px; border-bottom:1px solid var(--khaki-light); font-size:14px; vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--krem);}
+
+.pill{
+  display:inline-block; padding:3px 10px; border-radius:99px;
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+}
+.pill-hadir{background:#dcebd5; color:var(--hijau-dark);}
+.pill-alpha{background:#f5d6d6; color:var(--merah-dark);}
+.pill-izin{background:#f5e6c8; color:#8a6512;}
+.pill-sakit{background:#dde3f0; color:#3a4a7a;}
+.tingkat-pill{background:var(--khaki-light); color:var(--tanah-dark); font-family:var(--font-mono);}
+
+.empty-state{
+  text-align:center; padding:48px 20px; color:var(--ink-soft);
+}
+.empty-state svg{width:56px; height:56px; opacity:.3; margin-bottom:12px;}
+.empty-state h4{font-family:var(--font-display); font-size:16px; color:var(--tanah); margin-bottom:6px;}
+.empty-state p{font-size:13px;}
+
+/* ============ TOAST ============ */
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--krem-soft);
+  padding:12px 22px; border-radius:var(--radius);
+  font-size:14px; font-weight:600;
+  box-shadow:4px 4px 0 var(--gold);
+  z-index:300; opacity:0; transition:all .25s;
+  pointer-events:none;
+  display:flex; align-items:center; gap:8px;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* ============ MISC ============ */
+.section-divider{
+  display:flex; align-items:center; gap:10px; margin:28px 0 16px;
+}
+.section-divider .line{flex:1; height:2px; background:var(--khaki-light);}
+.section-divider span{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.1em;
+  color:var(--ink-soft); text-transform:uppercase;
+}
+.flexbar{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px;}
+.search-input{max-width:280px;}
+.avatar-circ{
+  width:36px; height:36px; border-radius:50%;
+  background:var(--khaki); color:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:14px;
+  flex-shrink:0; border:2px solid var(--tanah-dark);
+}
+.muted{color:var(--ink-soft); font-size:13px;}
+.tag-row{display:flex; gap:6px; flex-wrap:wrap;}
+.icon-btn-row{display:flex; gap:6px;}
+
+.sku-group{border:2px solid var(--khaki-light); border-radius:var(--radius); margin-bottom:14px; overflow:hidden;}
+.sku-group-head{
+  background:var(--krem); padding:10px 14px; display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; font-family:var(--font-display); font-weight:600; color:var(--tanah-dark); font-size:14px;
+}
+.sku-items{padding:4px 14px 10px;}
+.sku-item{
+  display:flex; align-items:flex-start; gap:10px; padding:8px 0;
+  border-bottom:1px dashed var(--khaki-light);
+}
+.sku-item:last-child{border-bottom:none;}
+.sku-item input[type=checkbox]{width:18px; height:18px; flex-shrink:0; margin-top:2px; accent-color:var(--hijau);}
+.sku-item label{font-size:13px; text-transform:none; font-weight:400; color:var(--ink); margin:0;}
+.sku-progress-bar{
+  height:8px; background:var(--khaki-light); border-radius:99px; overflow:hidden; margin-top:6px;
+}
+.sku-progress-fill{height:100%; background:var(--hijau); transition:width .3s;}
+
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px;
+}
+.gallery-item{
+  border:2px solid var(--ink); border-radius:var(--radius); overflow:hidden;
+  background:var(--white); box-shadow:var(--shadow-cut);
+}
+.gallery-item img{width:100%; height:120px; object-fit:cover; display:block; background:var(--khaki-light);}
+.gallery-item .cap{padding:8px 10px; font-size:12px; color:var(--ink-soft);}
+
+.announcement{
+  border-left:4px solid var(--merah); background:var(--white);
+  border:2px solid var(--ink); border-radius:var(--radius); box-shadow:var(--shadow-cut);
+  padding:14px 16px; margin-bottom:12px; position:relative;
+}
+.announcement .date{font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+.announcement h4{font-family:var(--font-display); font-size:15px; color:var(--tanah-dark); margin:4px 0;}
+
+footer{
+  text-align:center; padding:24px; color:var(--ink-soft); font-size:12px;
+  border-top:2px solid var(--khaki-light); margin-top:20px;
+}
+
+@media(max-width:640px){
+  .brand-text h1{font-size:17px;}
+  .page-head h2{font-size:22px;}
+  .nav-btn{font-size:13px; padding:12px 10px 10px;}
+}
+
+/* ============ ABSENSI LIST (responsif, tanpa scroll horizontal) ============ */
+.absensi-list{display:flex; flex-direction:column; gap:10px;}
+.absensi-row{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:12px; border:1px solid var(--khaki-light); border-radius:var(--radius);
+  background:var(--krem-soft); flex-wrap:wrap;
+}
+.absensi-row-name{display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-width:140px;}
+.absensi-row-status{display:flex; justify-content:flex-end;}
+@media(max-width:560px){
+  .absensi-row{flex-direction:column; align-items:stretch;}
+  .absensi-row-status{justify-content:flex-start;}
+  .absensi-row-status .tag-row{width:100%;}
+  .absensi-row-status .btn-sm{flex:1; min-width:0;}
+}
+
+/* ============ LOGIN SCREEN ============ */
+.login-screen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:20px;
+  background: var(--tanah-dark);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(192,138,46,0.18) 0, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(74,107,58,0.18) 0, transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 12px);
+}
+.login-card{
+  background: var(--krem-soft);
+  border:2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 8px 8px 0 var(--gold);
+  padding:32px 28px;
+  max-width:380px; width:100%;
+}
+.login-badge{
+  width:64px; height:64px; margin:0 auto 14px;
+  border-radius:50%;
+  background:var(--gold);
+  border:3px solid var(--tanah-dark);
+  display:flex; align-items:center; justify-content:center;
+}
+.login-badge svg{width:36px; height:36px;}
+.login-title{
+  font-family:var(--font-display); font-size:24px; font-weight:700;
+  color:var(--tanah-dark); text-align:center; margin-top:6px;
+}
+.login-sub{
+  text-align:center; color:var(--ink-soft); font-size:13px; margin-top:4px;
+}
+.login-hint{
+  font-size:11px; color:var(--ink-soft); text-align:center; margin-top:14px; line-height:1.5;
+}
+.login-error{
+  color:var(--merah-dark); font-size:13px; font-weight:600; text-align:center; margin-top:10px;
+}
+
+/* ============ USER PILL (topbar) ============ */
+.user-pill{
+  display:flex; align-items:center; gap:8px;
+  color:var(--krem-soft); font-size:12px;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // ====== KONFIGURASI SUPABASE ======
+  // Ganti nilai di bawah ini dengan URL dan API Key dari Supabase Dashboard milikmu.
+  // Lihat panduan PANDUAN-DEPLOY.md untuk cara mendapatkannya.
+  const SUPABASE_URL = "GANTI_DENGAN_SUPABASE_URL_ANDA";
+  const SUPABASE_ANON_KEY = "GANTI_DENGAN_SUPABASE_ANON_KEY_ANDA";
+
+  try{
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    window.__supabaseClient = supabaseClient;
+    window.__supabaseReady = true;
+  }catch(e){
+    console.warn('Gagal membuat klien Supabase', e);
+    window.__supabaseReady = false;
+  }
+</script>
+</head>
+<body>
+
+<!-- ====== LOADING SCREEN (saat memuat data bersama dari storage) ====== -->
+<div class="login-screen" id="loadingScreen">
+  <div class="login-card" style="text-align:center;">
+    <div class="login-badge" style="margin:0 auto;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C12 2 9 6 9 10C9 12.5 10.2 14 12 14C13.8 14 15 12.5 15 10C15 6 12 2 12 2Z" fill="#3d3120"/>
+        <path d="M12 14C12 14 10 17 7 18.5C5 19.5 4 21 4 21C4 21 7 22 10 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+        <path d="M12 14C12 14 14 17 17 18.5C19 19.5 20 21 20 21C20 21 17 22 14 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+        <circle cx="12" cy="9" r="1.4" fill="#c08a2e"/>
+      </svg>
+    </div>
+    <p class="login-sub" style="margin-top:14px;">Memuat data organisasi...</p>
+  </div>
+</div>
+
+<!-- ====== LOGIN SCREEN ====== -->
+<div class="login-screen" id="loginScreen" style="display:none;"></div>
+
+<!-- ====== APP ROOT (tersembunyi sampai login berhasil) ====== -->
+<div id="appRoot" style="display:none;">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="badge-emblem" id="headerLogoSlot">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C12 2 9 6 9 10C9 12.5 10.2 14 12 14C13.8 14 15 12.5 15 10C15 6 12 2 12 2Z" fill="#3d3120"/>
+        <path d="M12 14C12 14 10 17 7 18.5C5 19.5 4 21 4 21C4 21 7 22 10 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+        <path d="M12 14C12 14 14 17 17 18.5C19 19.5 20 21 20 21C20 21 17 22 14 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+        <circle cx="12" cy="9" r="1.4" fill="#c08a2e"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <span class="eyebrow">Gerakan Pramuka · Gugus Depan</span>
+      <h1>SMK KHOIRIYAH SUMOBITO</h1>
+      <span class="sub">Sistem Organisasi &amp; Administrasi Pramuka</span>
+    </div>
+    <div class="topbar-stat" id="topbarUser"></div>
+  </div>
+</div>
+
+<div class="navwrap">
+  <nav class="nav" id="navTabs">
+    <button class="nav-btn active" data-view="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      Dasbor
+    </button>
+    <button class="nav-btn" data-view="anggota">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Anggota &amp; Absensi
+    </button>
+    <button class="nav-btn" data-view="jadwal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Jadwal Kegiatan
+    </button>
+    <button class="nav-btn" data-view="sku">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>
+      Nilai SKU
+    </button>
+    <button class="nav-btn" data-view="inventaris">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Inventaris
+    </button>
+    <button class="nav-btn" data-view="arsip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+      Arsip Digital
+    </button>
+    <button class="nav-btn" data-view="keuangan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Kas &amp; Keuangan
+    </button>
+    <button class="nav-btn" data-view="laporan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      Laporan
+    </button>
+    <button class="nav-btn" data-view="info">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      Galeri &amp; Info
+    </button>
+    <button class="nav-btn" data-view="pengguna">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/><path d="M19 8l1.5 1.5M19 8l-1.5 1.5M19 8V5"/></svg>
+      Hak Akses
+    </button>
+  </nav>
+</div>
+
+<main>
+  <!-- ====== DASHBOARD ====== -->
+  <section class="view active" id="view-dashboard"></section>
+
+  <!-- ====== ANGGOTA ====== -->
+  <section class="view" id="view-anggota"></section>
+
+  <!-- ====== JADWAL ====== -->
+  <section class="view" id="view-jadwal"></section>
+
+  <!-- ====== SKU ====== -->
+  <section class="view" id="view-sku"></section>
+
+  <!-- ====== INVENTARIS ====== -->
+  <section class="view" id="view-inventaris"></section>
+
+  <!-- ====== ARSIP DIGITAL ====== -->
+  <section class="view" id="view-arsip"></section>
+
+  <!-- ====== KEUANGAN ====== -->
+  <section class="view" id="view-keuangan"></section>
+
+  <!-- ====== LAPORAN ====== -->
+  <section class="view" id="view-laporan"></section>
+
+  <!-- ====== INFO/GALERI ====== -->
+  <section class="view" id="view-info"></section>
+
+  <!-- ====== HAK AKSES PENGGUNA ====== -->
+  <section class="view" id="view-pengguna"></section>
+</main>
+
+<footer>
+  Gugus Depan Pramuka · SMK Khoiriyah Sumobito &mdash; Data tersimpan bersama dan dapat diakses dari perangkat mana pun
+</footer>
+
+</div><!-- /#appRoot -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   APLIKASI ORGANISASI PRAMUKA - SMK KHOIRIYAH SUMOBITO
+   Data disimpan di localStorage browser (persist antar sesi
+   di perangkat yang sama). Tersedia juga Ekspor/Impor JSON
+   sebagai cadangan agar data tidak hilang.
+   ========================================================= */
+
+const STORAGE_KEY = 'pramuka_khoiriyah_data_v1';
+
+const SKU_TEMPLATE = {
+  bantara: {
+    label: 'Penegak Bantara',
+    items: [
+      'Selalu menjalankan ibadah sesuai agama dan kepercayaannya',
+      'Dapat menjelaskan riwayat hidup tokoh agama yang dianutnya untuk diteladani',
+      'Tahu dan dapat menjelaskan struktur organisasi Ambalan dan Gugus Depan',
+      'Berperan aktif dalam kegiatan musyawarah/diskusi di Ambalan',
+      'Pernah ikut serta dalam kegiatan bakti masyarakat',
+      'Dapat menjelaskan sejarah kepramukaan dunia dan Indonesia',
+      'Mengenal, mengerti, dan memahami isi AD/ART Gerakan Pramuka',
+      'Dapat menjelaskan struktur organisasi Kwartir dan Majelis Pembimbing Gerakan Pramuka',
+      'Tahu cara mengurus dan menyusun administrasi satuan secara sederhana',
+      'Dapat baris-berbaris serta memimpin barisan',
+      'Dapat menggunakan jam, kompas, dan tanda jejak dalam suatu penjelajahan',
+      'Dapat memberikan pertolongan pertama pada kecelakaan (P3K) ringan',
+      'Tahu cara menjaga kesehatan dan kebersihan pribadi serta lingkungan',
+      'Dapat berenang dan mempraktikkan penyelamatan diri di air',
+      'Pernah mengikuti kegiatan perkemahan minimal 3 hari berturut-turut',
+      'Dapat memimpin acara api unggun, kerja bakti, atau kegiatan kelompok lain',
+      'Dapat menjelaskan dan mempraktikkan tata cara penyelenggaraan rapat/sidang',
+      'Tahu tanda-tanda pengenal Gerakan Pramuka (tingkatan, jabatan, kecakapan)',
+      'Pernah menampilkan satu jenis kesenian atau budaya daerah di depan umum',
+      'Dapat menjelaskan dan menunjukkan sikap cinta tanah air dan bela negara',
+      'Dapat mengelola keuangan pribadi dan kelompok secara sederhana',
+      'Membantu mengajarkan satu kecakapan kepada anggota Penggalang/Siaga',
+      'Telah mengikuti latihan rutin di Ambalan secara aktif dan berkesinambungan'
+    ]
+  },
+  laksana: {
+    label: 'Penegak Laksana',
+    items: [
+      'Telah menyelesaikan SKU Penegak Bantara',
+      'Dapat menjelaskan makna ajaran agamanya secara lebih mendalam di hadapan Ambalan',
+      'Mengikuti dan/atau memimpin diskusi/musyawarah Ambalan serta mampu mengambil keputusan',
+      'Dapat menjadi penengah dan pemberi solusi bila terjadi ketidaksepahaman dalam kelompok',
+      'Aktif mengikuti pertemuan Ambalan sekurang-kurangnya tiga kali setiap bulan',
+      'Dapat merencanakan dan memimpin suatu kegiatan atau program kerja Ambalan',
+      'Mampu menjadi instruktur/pelatih untuk satu kecakapan tertentu bagi adik tingkat',
+      'Dapat merencanakan, mengelola, dan memimpin sebuah perkemahan atau pengembaraan',
+      'Mampu mengelola administrasi dan keuangan kegiatan dalam skala lebih besar',
+      'Dapat menjelaskan dan mempraktikkan teknik kepemimpinan dan dinamika kelompok',
+      'Pernah menjadi panitia atau pelaksana suatu kegiatan bakti masyarakat',
+      'Dapat membantu menyelesaikan SKU untuk anggota Pramuka Siaga atau Penggalang',
+      'Mampu melakukan penyuluhan kesehatan atau lingkungan kepada masyarakat sekitar',
+      'Dapat menjelaskan dan menerapkan nilai kewirausahaan dalam suatu kegiatan',
+      'Telah mengikuti Kursus Pemimpin/Pembina dasar (bila tersedia di Gudep/Kwartir)',
+      'Menunjukkan sikap teladan, disiplin, dan tanggung jawab sebagai calon pemimpin'
+    ]
+  }
+};
+
+const DEFAULT_DATA = {
+  anggota: [],
+  kegiatan: [],
+  absensi: {},      // { kegiatanId: { anggotaId: status } }
+  sku: {},           // { anggotaId: { tingkat: { itemIndex: bool } } }
+  pengumuman: [],
+  galeri: [],
+  pengguna: [
+    { id:'usr_pembina', nama:'Pembina Gugus Depan', peran:'pembina', pin:'1945' },
+    { id:'usr_pengurus', nama:'Pengurus Ambalan', peran:'pengurus', pin:'2024' },
+    { id:'usr_anggota', nama:'Anggota', peran:'anggota', pin:'0000' }
+  ],
+  inventaris: [],
+  arsip: [],
+  keuangan: [],
+  pengaturan: { logoDataUrl: '', namaOrganisasi: 'Gugus Depan Pramuka SMK Khoiriyah Sumobito', alamat: 'Jl. Raya Sumobito, Kabupaten Jombang, Jawa Timur' }
+};
+
+const PERAN_LABEL = {
+  pembina: 'Pembina',
+  pengurus: 'Pengurus',
+  anggota: 'Anggota'
+};
+
+const KATEGORI_INVENTARIS = ['Perkemahan','Tali-temali & Pionering','Navigasi','P3K & Kesehatan','Upacara & Administrasi','Lainnya'];
+const KATEGORI_ARSIP = ['Surat Masuk','Surat Keluar','Sertifikat & Piagam','SK & Struktur Organisasi','Dokumentasi Lainnya'];
+const KATEGORI_KAS_MASUK = ['Iuran Anggota','Bantuan Sekolah','Donasi','Hasil Usaha/Kegiatan','Lainnya'];
+const KATEGORI_KAS_KELUAR = ['Perlengkapan Kegiatan','Konsumsi','Transportasi','Administrasi','Perbaikan Inventaris','Lainnya'];
+
+let CURRENT_USER = null; // diisi setelah login
+let SELF_ABSEN_ANGGOTA_ID = null; // anggota yang dipilih saat akun peran "anggota" melakukan absen mandiri
+
+let DATA = JSON.parse(JSON.stringify(DEFAULT_DATA)); // cache di memori, diisi async saat startup
+let DATA_READY = false;
+let SAVE_IN_FLIGHT = null; // mencegah dua saveData() saling tumpang tindih
+let LAST_SAVED_JSON = '';  // untuk mendeteksi perubahan dari perangkat lain saat refresh
+
+/* ---------------- PERSISTENCE (Supabase Postgres, semua perangkat) ---------------- */
+const SUPABASE_TABLE = 'pramuka_data';
+const SUPABASE_ROW_ID = 1; // selalu satu baris tunggal yang menyimpan seluruh data aplikasi
+
+async function waitForSupabase(timeoutMs){
+  const start = Date.now();
+  while(!window.__supabaseReady){
+    if(Date.now() - start > timeoutMs) return false;
+    await new Promise(r=>setTimeout(r, 50));
+  }
+  return true;
+}
+
+async function loadData(){
+  const ready = await waitForSupabase(8000);
+  if(!ready){
+    console.warn('Supabase tidak termuat (cek koneksi internet atau konfigurasi SUPABASE_URL/ANON_KEY)');
+    showToast('Gagal terhubung ke server. Cek koneksi internet, atau pastikan konfigurasi Supabase sudah diisi dengan benar (lihat PANDUAN-DEPLOY.md).');
+    return JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+  try{
+    const { data, error } = await window.__supabaseClient
+      .from(SUPABASE_TABLE)
+      .select('payload')
+      .eq('id', SUPABASE_ROW_ID)
+      .maybeSingle();
+    if(error) throw error;
+    if(data && data.payload){
+      LAST_SAVED_JSON = data.payload;
+      return Object.assign({}, DEFAULT_DATA, JSON.parse(data.payload));
+    }
+  }catch(e){
+    console.warn('Belum ada data tersimpan / gagal memuat, memakai data kosong', e);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+const STORAGE_SIZE_LIMIT_BYTES = 5 * 1024 * 1024; // batas aman 5MB per baris (Postgres text jauh lebih besar, ini batas kita sendiri)
+const STORAGE_WARN_THRESHOLD = 0.85; // beri peringatan dini di 85% dari batas
+
+function getCurrentDataSizeBytes(){
+  return new Blob([JSON.stringify(DATA)]).size;
+}
+/* Dipanggil SEBELUM menambahkan data besar (foto/logo) ke DATA, supaya kita tidak
+   menambah ke memori lalu baru tahu gagal simpan saat saveData() dipanggil. */
+function checkStorageHeadroom(additionalBytes){
+  const projected = getCurrentDataSizeBytes() + additionalBytes;
+  if(projected >= STORAGE_SIZE_LIMIT_BYTES){
+    showToast('Penyimpanan sudah penuh (>5MB). Hapus beberapa foto lama di Galeri dulu, lalu coba lagi.');
+    return false;
+  }
+  if(projected >= STORAGE_SIZE_LIMIT_BYTES * STORAGE_WARN_THRESHOLD){
+    const persen = Math.round((projected/STORAGE_SIZE_LIMIT_BYTES)*100);
+    showToast(`Peringatan: penyimpanan akan mencapai ${persen}% dari batas. Pertimbangkan menghapus foto lama.`);
+  }
+  return true;
+}
+
+async function saveData(){
+  const json = JSON.stringify(DATA);
+  const sizeBytes = new Blob([json]).size;
+
+  if(sizeBytes >= STORAGE_SIZE_LIMIT_BYTES){
+    showToast('Data terlalu besar untuk disimpan (>5MB). Hapus beberapa foto di Galeri lalu coba lagi.');
+    return; // batalkan penyimpanan, jangan timpa LAST_SAVED_JSON supaya data lama tetap aman
+  }
+
+  LAST_SAVED_JSON = json;
+  const task = (async ()=>{
+    try{
+      const { error } = await window.__supabaseClient
+        .from(SUPABASE_TABLE)
+        .upsert({ id: SUPABASE_ROW_ID, payload: json, updated_at: new Date().toISOString() });
+      if(error) throw error;
+    }catch(e){
+      console.warn('Gagal menyimpan data ke Supabase', e);
+      showToast('Gagal menyimpan ke server. Periksa koneksi internet.');
+    }
+  })();
+  SAVE_IN_FLIGHT = task;
+  await task;
+}
+
+/* Listener realtime Supabase: begitu ada perubahan dari perangkat lain,
+   otomatis tertarik ke sini tanpa perlu polling manual. */
+function setupRealtimeSync(){
+  if(!window.__supabaseClient) return;
+  window.__supabaseClient
+    .channel('pramuka_data_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: SUPABASE_TABLE }, (payload)=>{
+      const newPayload = payload.new && payload.new.payload;
+      if(newPayload && newPayload !== LAST_SAVED_JSON){
+        LAST_SAVED_JSON = newPayload;
+        try{
+          DATA = Object.assign({}, DEFAULT_DATA, JSON.parse(newPayload));
+          const activeBtn = document.querySelector('.nav-btn.active');
+          if(activeBtn && CURRENT_USER) renderView(activeBtn.dataset.view);
+        }catch(e){ console.warn('Gagal memproses update realtime', e); }
+      }
+    })
+    .subscribe((status)=>{
+      if(status === 'CHANNEL_ERROR' || status === 'TIMED_OUT'){
+        console.warn('Realtime sync bermasalah, mengandalkan fallback manual saja');
+      }
+    });
+}
+
+/* Dipertahankan sebagai fallback manual (dipanggil saat fokus/visibility),
+   walau realtime subscribe biasanya sudah cukup. */
+async function refreshFromRemote(){
+  if(!DATA_READY) return;
+  try{
+    const { data, error } = await window.__supabaseClient
+      .from(SUPABASE_TABLE)
+      .select('payload')
+      .eq('id', SUPABASE_ROW_ID)
+      .maybeSingle();
+    if(error) throw error;
+    if(data && data.payload && data.payload !== LAST_SAVED_JSON){
+      LAST_SAVED_JSON = data.payload;
+      DATA = Object.assign({}, DEFAULT_DATA, JSON.parse(data.payload));
+      const activeBtn = document.querySelector('.nav-btn.active');
+      if(activeBtn && CURRENT_USER) renderView(activeBtn.dataset.view);
+    }
+  }catch(e){ /* diam-diam abaikan, coba lagi di siklus berikutnya */ }
+}
+function uid(prefix){
+  return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+}
+
+/* ---------------- TOAST ---------------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+/* ---------------- NAV ---------------- */
+function setView(viewName){
+  const allowed = MENU_ACCESS_BY_ROLE[CURRENT_USER?.peran] || [];
+  if(!allowed.includes(viewName)){
+    viewName = 'dashboard';
+  }
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+viewName).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view === viewName);
+  });
+  renderView(viewName);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('navTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.nav-btn');
+  if(btn) setView(btn.dataset.view);
+});
+
+function renderView(name){
+  if(name==='dashboard') renderDashboard();
+  if(name==='anggota') renderAnggota();
+  if(name==='jadwal') renderJadwal();
+  if(name==='sku') renderSKU();
+  if(name==='info') renderInfo();
+  if(name==='inventaris') renderInventaris();
+  if(name==='arsip') renderArsip();
+  if(name==='pengguna') renderPengguna();
+  if(name==='keuangan') renderKeuangan();
+  if(name==='laporan') renderLaporan();
+}
+
+/* ---------------- HAK AKSES ---------------- */
+// pembina: akses penuh semua menu & aksi
+// pengurus: kelola data operasional, TIDAK bisa kelola pengguna
+// anggota: hanya bisa melihat, tidak bisa tambah/edit/hapus apa pun
+function isPembina(){ return CURRENT_USER?.peran === 'pembina'; }
+function isPengurus(){ return CURRENT_USER?.peran === 'pengurus'; }
+function isAnggota(){ return CURRENT_USER?.peran === 'anggota'; }
+function canEdit(){ return isPembina() || isPengurus(); }
+function canManageUsers(){ return isPembina(); }
+
+function guardOrToast(allowed){
+  if(!allowed){ showToast('Akses ditolak — perlu peran Pembina/Pengurus'); }
+  return allowed;
+}
+
+/* ---------------- UTIL ---------------- */
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str ?? '';
+  return d.innerHTML;
+}
+function initials(name){
+  return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+}
+function formatDateID(dateStr){
+  if(!dateStr) return '-';
+  const d = new Date(dateStr+'T00:00:00');
+  if(isNaN(d)) return dateStr;
+  return d.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short', year:'numeric'});
+}
+function todayISO(){
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+
+/* ---------------- MODAL HELPER ---------------- */
+function openModal(html){
+  let overlay = document.getElementById('modalOverlay');
+  if(!overlay){
+    overlay = document.createElement('div');
+    overlay.id = 'modalOverlay';
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML = `<div class="modal" id="modalBox"></div>`;
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+  }
+  document.getElementById('modalBox').innerHTML = html;
+  overlay.classList.add('active');
+}
+function closeModal(){
+  const overlay = document.getElementById('modalOverlay');
+  if(overlay) overlay.classList.remove('active');
+}
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+function renderDashboard(){
+  const totalAnggota = DATA.anggota.length;
+  const totalKegiatan = DATA.kegiatan.length;
+  const upcoming = DATA.kegiatan
+    .filter(k => k.tanggal >= todayISO())
+    .sort((a,b)=> a.tanggal.localeCompare(b.tanggal))
+    .slice(0,3);
+
+  // rata-rata kehadiran
+  let totalHadir=0, totalRecord=0;
+  Object.values(DATA.absensi).forEach(rec=>{
+    Object.values(rec).forEach(status=>{
+      totalRecord++;
+      if(status==='Hadir') totalHadir++;
+    });
+  });
+  const persenHadir = totalRecord ? Math.round((totalHadir/totalRecord)*100) : 0;
+
+  // SKU progress rata-rata
+  let skuPercents = [];
+  DATA.anggota.forEach(a=>{
+    const p = skuOverallPercent(a.id);
+    if(p !== null) skuPercents.push(p);
+  });
+  const avgSku = skuPercents.length ? Math.round(skuPercents.reduce((s,v)=>s+v,0)/skuPercents.length) : 0;
+
+  const pengumumanTerbaru = [...DATA.pengumuman].sort((a,b)=> b.tanggal.localeCompare(a.tanggal)).slice(0,3);
+  const saldoKas = MENU_ACCESS_BY_ROLE[CURRENT_USER?.peran]?.includes('keuangan') ? hitungSaldo() : null;
+
+  document.getElementById('view-dashboard').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Ringkasan Gugus Depan</span>
+        <h2>Dasbor Organisasi</h2>
+        <p>Pantau anggota, kegiatan, dan capaian SKU dalam satu tampilan.</p>
+      </div>
+      <div class="icon-btn-row">
+        ${isPembina() ? `
+        <button class="btn btn-sm" onclick="exportData()">⬇ Ekspor Cadangan</button>
+        <button class="btn btn-sm" onclick="triggerImport()">⬆ Impor Cadangan</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
+        ` : ''}
+      </div>
+    </div>
+
+    <div class="grid grid-stats" style="margin-bottom:24px;">
+      <div class="stat-card">
+        <div class="num">${totalAnggota}</div>
+        <div class="lbl">Anggota Aktif</div>
+      </div>
+      <div class="stat-card green">
+        <div class="num">${totalKegiatan}</div>
+        <div class="lbl">Kegiatan Tercatat</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="num">${persenHadir}%</div>
+        <div class="lbl">Rata-rata Kehadiran</div>
+      </div>
+      <div class="stat-card red">
+        <div class="num">${avgSku}%</div>
+        <div class="lbl">Rata-rata Capaian SKU</div>
+      </div>
+      ${saldoKas !== null ? `
+      <div class="stat-card" style="background:var(--tanah-dark);">
+        <div class="num" style="font-size:20px;">${formatRupiah(saldoKas)}</div>
+        <div class="lbl">Saldo Kas</div>
+      </div>` : ''}
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="flexbar" style="margin-bottom:8px;">
+          <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px;">📅 Kegiatan Terdekat</h3>
+          <button class="btn btn-sm btn-ghost" onclick="setView('jadwal')">Lihat semua →</button>
+        </div>
+        ${upcoming.length ? upcoming.map(k=>`
+          <div style="padding:10px 0; border-bottom:1px dashed var(--khaki-light);">
+            <div style="font-weight:700; font-family:var(--font-display); color:var(--tanah-dark);">${escapeHtml(k.nama)}</div>
+            <div class="muted">${formatDateID(k.tanggal)} · ${escapeHtml(k.lokasi||'Lokasi belum diisi')}</div>
+          </div>
+        `).join('') : `<p class="muted">Belum ada kegiatan mendatang. Tambahkan di menu Jadwal Kegiatan.</p>`}
+      </div>
+
+      <div class="card">
+        <div class="flexbar" style="margin-bottom:8px;">
+          <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px;">📣 Pengumuman Terbaru</h3>
+          <button class="btn btn-sm btn-ghost" onclick="setView('info')">Lihat semua →</button>
+        </div>
+        ${pengumumanTerbaru.length ? pengumumanTerbaru.map(p=>`
+          <div style="padding:10px 0; border-bottom:1px dashed var(--khaki-light);">
+            <div style="font-weight:700; color:var(--tanah-dark);">${escapeHtml(p.judul)}</div>
+            <div class="muted" style="margin-top:2px;">${escapeHtml(p.isi.slice(0,80))}${p.isi.length>80?'…':''}</div>
+          </div>
+        `).join('') : `<p class="muted">Belum ada pengumuman. Tambahkan di menu Galeri & Info.</p>`}
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   ANGGOTA & ABSENSI
+   ========================================================= */
+let anggotaSearchQuery = '';
+let anggotaFilterTingkat = '';
+
+function renderAnggota(){
+  const filtered = DATA.anggota.filter(a=>{
+    const matchSearch = !anggotaSearchQuery || a.nama.toLowerCase().includes(anggotaSearchQuery.toLowerCase()) || (a.nis||'').includes(anggotaSearchQuery);
+    const matchTingkat = !anggotaFilterTingkat || a.tingkat === anggotaFilterTingkat;
+    return matchSearch && matchTingkat;
+  });
+
+  document.getElementById('view-anggota').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Data Keanggotaan</span>
+        <h2>Anggota &amp; Absensi</h2>
+        <p>Kelola data anggota Pramuka dan catat kehadiran tiap kegiatan.</p>
+      </div>
+      ${canEdit() ? `<button class="btn btn-primary" onclick="openAnggotaForm()">+ Tambah Anggota</button>` : ''}
+    </div>
+
+    <div class="flexbar">
+      <input class="search-input" type="text" placeholder="Cari nama atau NIS..." value="${escapeHtml(anggotaSearchQuery)}" oninput="anggotaSearchQuery=this.value; renderAnggota();">
+      <select style="max-width:200px;" onchange="anggotaFilterTingkat=this.value; renderAnggota();">
+        <option value="">Semua tingkat</option>
+        <option value="bantara" ${anggotaFilterTingkat==='bantara'?'selected':''}>Penegak Bantara</option>
+        <option value="laksana" ${anggotaFilterTingkat==='laksana'?'selected':''}>Penegak Laksana</option>
+      </select>
+    </div>
+
+    ${filtered.length ? `
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th></th><th>Nama</th><th>NIS</th><th>Kelas</th><th>Tingkat</th><th>No. HP</th>${canEdit()?'<th>Aksi</th>':''}
+        </tr></thead>
+        <tbody>
+          ${filtered.map(a=>`
+            <tr>
+              <td><div class="avatar-circ">${initials(a.nama)}</div></td>
+              <td><strong>${escapeHtml(a.nama)}</strong></td>
+              <td>${escapeHtml(a.nis||'-')}</td>
+              <td>${escapeHtml(a.kelas||'-')}</td>
+              <td><span class="pill tingkat-pill">${SKU_TEMPLATE[a.tingkat]?.label || '-'}</span></td>
+              <td>${escapeHtml(a.hp||'-')}</td>
+              ${canEdit() ? `
+              <td>
+                <div class="icon-btn-row">
+                  <button class="btn btn-icon" title="Edit" onclick="openAnggotaForm('${a.id}')">✎</button>
+                  <button class="btn btn-icon btn-danger" title="Hapus" onclick="deleteAnggota('${a.id}')">🗑</button>
+                </div>
+              </td>` : ''}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    ` : `
+      <div class="empty-state card">
+        <h4>Belum ada anggota</h4>
+        <p>${canEdit() ? 'Klik "Tambah Anggota" untuk mulai mendaftarkan anggota Pramuka.' : 'Belum ada data anggota untuk ditampilkan.'}</p>
+      </div>
+    `}
+
+    <div class="section-divider"><div class="line"></div><span>Absensi Kegiatan</span><div class="line"></div></div>
+    ${renderAbsensiSection()}
+  `;
+}
+
+function openAnggotaForm(id){
+  if(!guardOrToast(canEdit())) return;
+  const editing = id ? DATA.anggota.find(a=>a.id===id) : null;
+  openModal(`
+    <h3>${editing ? 'Edit Anggota' : 'Tambah Anggota'}</h3>
+    <form id="anggotaForm" onsubmit="submitAnggotaForm(event, '${id||''}')">
+      <div class="field">
+        <label>Nama Lengkap</label>
+        <input name="nama" required value="${editing?escapeHtml(editing.nama):''}" placeholder="Contoh: Ahmad Fauzi">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>NIS</label>
+          <input name="nis" value="${editing?escapeHtml(editing.nis||''):''}" placeholder="00123">
+        </div>
+        <div class="field">
+          <label>Kelas</label>
+          <input name="kelas" value="${editing?escapeHtml(editing.kelas||''):''}" placeholder="X TKJ 1">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tingkat Pramuka</label>
+          <select name="tingkat">
+            <option value="bantara" ${editing?.tingkat==='bantara'?'selected':''}>Penegak Bantara</option>
+            <option value="laksana" ${editing?.tingkat==='laksana'?'selected':''}>Penegak Laksana</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>No. HP / WA</label>
+          <input name="hp" value="${editing?escapeHtml(editing.hp||''):''}" placeholder="08xxxxxxxxxx">
+        </div>
+      </div>
+      <div class="field">
+        <label>Jabatan (opsional)</label>
+        <input name="jabatan" value="${editing?escapeHtml(editing.jabatan||''):''}" placeholder="Ketua Regu, Bendahara, dst.">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing ? 'Simpan Perubahan' : 'Tambah Anggota'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitAnggotaForm(e, id){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const payload = {
+    nama: f.get('nama').trim(),
+    nis: f.get('nis').trim(),
+    kelas: f.get('kelas').trim(),
+    tingkat: f.get('tingkat'),
+    hp: f.get('hp').trim(),
+    jabatan: f.get('jabatan').trim()
+  };
+  if(id){
+    const a = DATA.anggota.find(x=>x.id===id);
+    Object.assign(a, payload);
+    showToast('Data anggota diperbarui');
+  }else{
+    payload.id = uid('ang');
+    DATA.anggota.push(payload);
+    showToast('Anggota baru ditambahkan');
+  }
+  saveData();
+  closeModal();
+  renderAnggota();
+  renderDashboard();
+}
+
+function deleteAnggota(id){
+  if(!guardOrToast(canEdit())) return;
+  const a = DATA.anggota.find(x=>x.id===id);
+  if(!a) return;
+  openModal(`
+    <h3>Hapus Anggota?</h3>
+    <p class="muted">Yakin ingin menghapus <strong>${escapeHtml(a.nama)}</strong>? Data absensi dan SKU terkait juga akan terhapus. Tindakan ini tidak bisa dibatalkan.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeleteAnggota('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeleteAnggota(id){
+  DATA.anggota = DATA.anggota.filter(a=>a.id!==id);
+  Object.values(DATA.absensi).forEach(rec=> delete rec[id]);
+  delete DATA.sku[id];
+  saveData();
+  closeModal();
+  showToast('Anggota dihapus');
+  renderAnggota();
+  renderDashboard();
+}
+
+/* ----- Absensi ----- */
+let absensiSelectedKegiatan = '';
+
+function renderAbsensiSection(){
+  if(!DATA.kegiatan.length){
+    return `<div class="empty-state card"><h4>Belum ada kegiatan</h4><p>Tambahkan kegiatan di menu Jadwal Kegiatan untuk mulai mencatat absensi.</p></div>`;
+  }
+  if(!DATA.anggota.length){
+    return `<div class="empty-state card"><h4>Belum ada anggota</h4><p>Tambahkan anggota terlebih dahulu untuk mencatat absensi.</p></div>`;
+  }
+  if(!absensiSelectedKegiatan) absensiSelectedKegiatan = DATA.kegiatan[DATA.kegiatan.length-1].id;
+  const kegiatanSorted = [...DATA.kegiatan].sort((a,b)=> b.tanggal.localeCompare(a.tanggal));
+
+  const rec = DATA.absensi[absensiSelectedKegiatan] || {};
+  const statuses = ['Hadir','Izin','Sakit','Alpha'];
+
+  let hadirCount=0;
+  DATA.anggota.forEach(a=>{ if(rec[a.id]==='Hadir') hadirCount++; });
+
+  return `
+    <div class="card">
+      <div class="flexbar">
+        <div>
+          <label style="margin-bottom:6px;">Pilih Kegiatan</label>
+          <select style="min-width:260px;" onchange="absensiSelectedKegiatan=this.value; renderAnggota();">
+            ${kegiatanSorted.map(k=>`<option value="${k.id}" ${k.id===absensiSelectedKegiatan?'selected':''}>${formatDateID(k.tanggal)} — ${escapeHtml(k.nama)}</option>`).join('')}
+          </select>
+        </div>
+        <div class="muted">Hadir: <strong style="color:var(--hijau-dark);">${hadirCount}</strong> / ${DATA.anggota.length}</div>
+      </div>
+      <div class="absensi-list" style="margin-top:14px;">
+        ${DATA.anggota.map(a=>{
+          const current = rec[a.id] || '';
+          return `
+            <div class="absensi-row">
+              <div class="absensi-row-name">
+                <strong>${escapeHtml(a.nama)}</strong>
+                <span class="pill tingkat-pill">${SKU_TEMPLATE[a.tingkat]?.label.replace('Penegak ','')||'-'}</span>
+              </div>
+              <div class="absensi-row-status">
+                ${canEdit() ? `
+                <div class="tag-row">
+                  ${statuses.map(s=>`
+                    <button class="btn btn-sm ${current===s ? statusPillClass(s) : 'btn-ghost'}"
+                      onclick="setAbsensi('${a.id}','${s}')">${s}</button>
+                  `).join('')}
+                </div>
+                ` : `<span class="pill ${current?statusBadgeClass(current):'tingkat-pill'}">${current||'Belum dicatat'}</span>`}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+function statusPillClass(s){
+  if(s==='Hadir') return 'btn-primary';
+  if(s==='Alpha') return 'btn-accent';
+  return 'btn-sm';
+}
+function statusBadgeClass(s){
+  if(s==='Hadir') return 'pill-hadir';
+  if(s==='Alpha') return 'pill-alpha';
+  if(s==='Izin') return 'pill-izin';
+  if(s==='Sakit') return 'pill-sakit';
+  return 'tingkat-pill';
+}
+function setAbsensi(anggotaId, status){
+  if(!guardOrToast(canEdit())) return;
+  if(!DATA.absensi[absensiSelectedKegiatan]) DATA.absensi[absensiSelectedKegiatan] = {};
+  DATA.absensi[absensiSelectedKegiatan][anggotaId] = status;
+  saveData();
+  renderAnggota();
+}
+
+/* =========================================================
+   JADWAL KEGIATAN
+   ========================================================= */
+function renderJadwal(){
+  const sorted = [...DATA.kegiatan].sort((a,b)=> a.tanggal.localeCompare(b.tanggal));
+  const upcoming = sorted.filter(k=>k.tanggal >= todayISO());
+  const past = sorted.filter(k=>k.tanggal < todayISO()).reverse();
+
+  document.getElementById('view-jadwal').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Agenda Latihan</span>
+        <h2>Jadwal Kegiatan</h2>
+        <p>Susun rencana latihan rutin, perkemahan, dan kegiatan lainnya.</p>
+      </div>
+      ${canEdit() ? `<button class="btn btn-primary" onclick="openKegiatanForm()">+ Tambah Kegiatan</button>` : ''}
+    </div>
+
+    ${isAnggotaRole() ? renderAbsensiMandiriBlock() : ''}
+
+    <div class="section-divider"><div class="line"></div><span>Mendatang</span><div class="line"></div></div>
+    ${upcoming.length ? `<div class="grid grid-2">${upcoming.map(renderKegiatanCard).join('')}</div>`
+      : `<div class="empty-state card"><h4>Tidak ada kegiatan mendatang</h4><p>Tambahkan kegiatan baru agar muncul di sini.</p></div>`}
+
+    <div class="section-divider"><div class="line"></div><span>Sudah Berlalu</span><div class="line"></div></div>
+    ${past.length ? `<div class="grid grid-2">${past.map(renderKegiatanCard).join('')}</div>`
+      : `<p class="muted">Belum ada riwayat kegiatan.</p>`}
+  `;
+}
+
+function isAnggotaRole(){ return CURRENT_USER?.peran === 'anggota'; }
+
+/* ---------------- ABSENSI MANDIRI (oleh Anggota sendiri) ---------------- */
+function renderAbsensiMandiriBlock(){
+  if(!DATA.anggota.length){
+    return `<div class="card" style="margin-bottom:20px; border-color:var(--hijau-dark);">
+      <p class="muted">Belum ada data anggota terdaftar. Hubungi Pembina/Pengurus untuk didaftarkan terlebih dahulu.</p>
+    </div>`;
+  }
+  const todaysKegiatan = DATA.kegiatan.filter(k => k.tanggal === todayISO());
+  const selectedId = SELF_ABSEN_ANGGOTA_ID || DATA.anggota[0].id;
+
+  let kegiatanBlock = '';
+  if(!todaysKegiatan.length){
+    kegiatanBlock = `<p class="muted">Tidak ada kegiatan yang berlangsung hari ini (${formatDateID(todayISO())}). Absensi mandiri hanya bisa dilakukan pada hari kegiatan berlangsung.</p>`;
+  }else{
+    kegiatanBlock = todaysKegiatan.map(k=>{
+      const rec = DATA.absensi[k.id] || {};
+      const currentStatus = rec[selectedId];
+      return `
+        <div class="card" style="margin-top:10px; box-shadow:none; border-style:dashed;">
+          <div class="flexbar" style="margin-bottom:4px;">
+            <strong style="font-family:var(--font-display); color:var(--tanah-dark);">${escapeHtml(k.nama)}</strong>
+            ${k.waktu ? `<span class="muted">⏰ ${escapeHtml(k.waktu)}</span>` : ''}
+          </div>
+          ${currentStatus
+            ? `<div class="pill ${statusBadgeClass(currentStatus)}" style="display:inline-block;">Status kamu: ${currentStatus}</div>`
+            : `<button class="btn btn-primary btn-sm" onclick="selfAbsen('${k.id}')">✓ Absen Hadir Sekarang</button>`
+          }
+        </div>
+      `;
+    }).join('');
+  }
+
+  return `
+    <div class="card" style="margin-bottom:20px; border-color:var(--hijau-dark);">
+      <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px; margin-bottom:10px;">✓ Absensi Mandiri</h3>
+      <label>Saya adalah</label>
+      <select onchange="SELF_ABSEN_ANGGOTA_ID=this.value; renderJadwal();">
+        ${DATA.anggota.map(a=>`<option value="${a.id}" ${a.id===selectedId?'selected':''}>${escapeHtml(a.nama)}</option>`).join('')}
+      </select>
+      ${kegiatanBlock}
+      <p class="muted" style="margin-top:10px; font-size:12px;">Absensi mandiri hanya berlaku untuk kegiatan pada tanggal hari ini, dan tidak bisa diubah sendiri setelah tercatat. Hubungi Pembina/Pengurus bila ada kesalahan.</p>
+    </div>
+  `;
+}
+function selfAbsen(kegiatanId){
+  if(!SELF_ABSEN_ANGGOTA_ID){
+    SELF_ABSEN_ANGGOTA_ID = DATA.anggota[0]?.id;
+  }
+  if(!SELF_ABSEN_ANGGOTA_ID){ showToast('Pilih nama kamu terlebih dahulu'); return; }
+  const k = DATA.kegiatan.find(x=>x.id===kegiatanId);
+  if(!k || k.tanggal !== todayISO()){
+    showToast('Absensi mandiri hanya berlaku pada hari kegiatan berlangsung');
+    renderJadwal();
+    return;
+  }
+  if(!DATA.absensi[kegiatanId]) DATA.absensi[kegiatanId] = {};
+  if(DATA.absensi[kegiatanId][SELF_ABSEN_ANGGOTA_ID]){
+    showToast('Kamu sudah tercatat absen untuk kegiatan ini');
+    return;
+  }
+  DATA.absensi[kegiatanId][SELF_ABSEN_ANGGOTA_ID] = 'Hadir';
+  saveData();
+  showToast('Absensi berhasil dicatat. Selamat mengikuti kegiatan!');
+  renderJadwal();
+}
+
+function renderKegiatanCard(k){
+  let hadir=0, total=DATA.anggota.length;
+  const rec = DATA.absensi[k.id] || {};
+  Object.values(rec).forEach(s=>{ if(s==='Hadir') hadir++; });
+  return `
+    <div class="card">
+      <div class="flexbar" style="margin-bottom:6px;">
+        <span class="pill tingkat-pill">${formatDateID(k.tanggal)}</span>
+        ${canEdit() ? `
+        <div class="icon-btn-row">
+          <button class="btn btn-icon" onclick="openKegiatanForm('${k.id}')">✎</button>
+          <button class="btn btn-icon btn-danger" onclick="deleteKegiatan('${k.id}')">🗑</button>
+        </div>` : ''}
+      </div>
+      <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:17px;">${escapeHtml(k.nama)}</h3>
+      <p class="muted" style="margin:4px 0 8px;">📍 ${escapeHtml(k.lokasi||'Lokasi belum diisi')} ${k.waktu? ' · ⏰ '+escapeHtml(k.waktu):''}</p>
+      ${k.deskripsi ? `<p style="font-size:13px; color:var(--ink-soft); margin-bottom:8px;">${escapeHtml(k.deskripsi)}</p>` : ''}
+      ${total ? `<p class="muted">Kehadiran tercatat: <strong>${hadir}/${total}</strong></p>` : ''}
+    </div>
+  `;
+}
+
+function openKegiatanForm(id){
+  if(!guardOrToast(canEdit())) return;
+  const editing = id ? DATA.kegiatan.find(k=>k.id===id) : null;
+  openModal(`
+    <h3>${editing ? 'Edit Kegiatan' : 'Tambah Kegiatan'}</h3>
+    <form onsubmit="submitKegiatanForm(event, '${id||''}')">
+      <div class="field">
+        <label>Nama Kegiatan</label>
+        <input name="nama" required value="${editing?escapeHtml(editing.nama):''}" placeholder="Latihan Rutin Mingguan">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tanggal</label>
+          <input type="date" name="tanggal" required value="${editing?editing.tanggal:todayISO()}">
+        </div>
+        <div class="field">
+          <label>Waktu</label>
+          <input name="waktu" value="${editing?escapeHtml(editing.waktu||''):''}" placeholder="14:00 - 16:00">
+        </div>
+      </div>
+      <div class="field">
+        <label>Lokasi</label>
+        <input name="lokasi" value="${editing?escapeHtml(editing.lokasi||''):''}" placeholder="Lapangan SMK Khoiriyah">
+      </div>
+      <div class="field">
+        <label>Deskripsi (opsional)</label>
+        <textarea name="deskripsi" rows="3" placeholder="Materi/agenda kegiatan...">${editing?escapeHtml(editing.deskripsi||''):''}</textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing?'Simpan Perubahan':'Tambah Kegiatan'}</button>
+      </div>
+    </form>
+  `);
+}
+function submitKegiatanForm(e, id){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const payload = {
+    nama: f.get('nama').trim(),
+    tanggal: f.get('tanggal'),
+    waktu: f.get('waktu').trim(),
+    lokasi: f.get('lokasi').trim(),
+    deskripsi: f.get('deskripsi').trim()
+  };
+  if(id){
+    Object.assign(DATA.kegiatan.find(k=>k.id===id), payload);
+    showToast('Kegiatan diperbarui');
+  }else{
+    payload.id = uid('keg');
+    DATA.kegiatan.push(payload);
+    showToast('Kegiatan ditambahkan');
+  }
+  saveData();
+  closeModal();
+  renderJadwal();
+  renderDashboard();
+}
+function deleteKegiatan(id){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Hapus Kegiatan?</h3>
+    <p class="muted">Data absensi untuk kegiatan ini juga akan terhapus. Lanjutkan?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeleteKegiatan('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeleteKegiatan(id){
+  DATA.kegiatan = DATA.kegiatan.filter(k=>k.id!==id);
+  delete DATA.absensi[id];
+  if(absensiSelectedKegiatan === id) absensiSelectedKegiatan = '';
+  saveData();
+  closeModal();
+  showToast('Kegiatan dihapus');
+  renderJadwal();
+  renderDashboard();
+}
+
+/* =========================================================
+   SKU (SYARAT KECAKAPAN UMUM)
+   ========================================================= */
+let skuSelectedAnggota = '';
+
+function getSkuState(anggotaId, tingkat){
+  if(!DATA.sku[anggotaId]) DATA.sku[anggotaId] = {};
+  if(!DATA.sku[anggotaId][tingkat]) DATA.sku[anggotaId][tingkat] = {};
+  return DATA.sku[anggotaId][tingkat];
+}
+function skuPercentFor(anggotaId, tingkat){
+  const template = SKU_TEMPLATE[tingkat];
+  if(!template) return 0;
+  const state = getSkuState(anggotaId, tingkat);
+  const done = template.items.filter((_,i)=> state[i]).length;
+  return Math.round((done/template.items.length)*100);
+}
+function skuOverallPercent(anggotaId){
+  const a = DATA.anggota.find(x=>x.id===anggotaId);
+  if(!a) return null;
+  return skuPercentFor(anggotaId, a.tingkat);
+}
+
+function renderSKU(){
+  if(!DATA.anggota.length){
+    document.getElementById('view-sku').innerHTML = `
+      <div class="page-head">
+        <div><span class="eyebrow">Capaian Kecakapan</span><h2>Nilai SKU</h2><p>Pantau syarat kecakapan umum tiap anggota.</p></div>
+      </div>
+      <div class="empty-state card"><h4>Belum ada anggota</h4><p>Tambahkan anggota di menu Anggota &amp; Absensi terlebih dahulu.</p></div>
+    `;
+    return;
+  }
+  if(!skuSelectedAnggota || !DATA.anggota.find(a=>a.id===skuSelectedAnggota)){
+    skuSelectedAnggota = DATA.anggota[0].id;
+  }
+  const anggota = DATA.anggota.find(a=>a.id===skuSelectedAnggota);
+  const tingkat = anggota.tingkat;
+  const template = SKU_TEMPLATE[tingkat];
+  const state = getSkuState(anggota.id, tingkat);
+  const percent = skuPercentFor(anggota.id, tingkat);
+
+  document.getElementById('view-sku').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Capaian Kecakapan</span>
+        <h2>Nilai SKU</h2>
+        <p>Checklist Syarat Kecakapan Umum sesuai tingkat Penegak (Bantara &amp; Laksana).</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;">
+      <label>Pilih Anggota</label>
+      <select onchange="skuSelectedAnggota=this.value; renderSKU();">
+        ${DATA.anggota.map(a=>`<option value="${a.id}" ${a.id===skuSelectedAnggota?'selected':''}>${escapeHtml(a.nama)} — ${SKU_TEMPLATE[a.tingkat]?.label}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="flexbar">
+        <div>
+          <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:18px;">${escapeHtml(anggota.nama)}</h3>
+          <span class="muted">${template.label}</span>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-display); font-size:24px; color:var(--hijau-dark); font-weight:700;">${percent}%</div>
+          <div class="muted">Tercapai</div>
+        </div>
+      </div>
+      <div class="sku-progress-bar"><div class="sku-progress-fill" style="width:${percent}%"></div></div>
+
+      <div class="sku-items" style="margin-top:18px; padding:0;">
+        ${template.items.map((item, i)=>`
+          <div class="sku-item">
+            <input type="checkbox" id="sku-${i}" ${state[i]?'checked':''} ${canEdit()?'':'disabled'} onchange="toggleSku('${anggota.id}','${tingkat}',${i})">
+            <label for="sku-${i}">${i+1}. ${escapeHtml(item)}</label>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="section-divider"><div class="line"></div><span>Rekap Semua Anggota</span><div class="line"></div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nama</th><th>Tingkat</th><th>Capaian SKU</th></tr></thead>
+        <tbody>
+          ${DATA.anggota.map(a=>{
+            const p = skuPercentFor(a.id, a.tingkat);
+            return `<tr>
+              <td><strong>${escapeHtml(a.nama)}</strong></td>
+              <td><span class="pill tingkat-pill">${SKU_TEMPLATE[a.tingkat]?.label}</span></td>
+              <td>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="sku-progress-bar" style="flex:1; max-width:160px;"><div class="sku-progress-fill" style="width:${p}%"></div></div>
+                  <span class="muted">${p}%</span>
+                </div>
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+function toggleSku(anggotaId, tingkat, index){
+  if(!guardOrToast(canEdit())) return;
+  const state = getSkuState(anggotaId, tingkat);
+  state[index] = !state[index];
+  saveData();
+  renderSKU();
+}
+
+/* =========================================================
+   GALERI & PENGUMUMAN
+   ========================================================= */
+function renderInfo(){
+  const pengumumanSorted = [...DATA.pengumuman].sort((a,b)=> b.tanggal.localeCompare(a.tanggal));
+
+  document.getElementById('view-info').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Papan Informasi</span>
+        <h2>Galeri &amp; Pengumuman</h2>
+        <p>Bagikan informasi penting dan dokumentasi kegiatan Pramuka.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div>
+        <div class="flexbar">
+          <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px;">📣 Pengumuman</h3>
+          ${canEdit() ? `<button class="btn btn-sm btn-primary" onclick="openPengumumanForm()">+ Tambah</button>` : ''}
+        </div>
+        ${pengumumanSorted.length ? pengumumanSorted.map(p=>`
+          <div class="announcement">
+            <div class="flexbar" style="margin-bottom:0;">
+              <span class="date">${formatDateID(p.tanggal)}</span>
+              ${canEdit() ? `<button class="btn btn-icon btn-danger" style="padding:2px 6px;" onclick="deletePengumuman('${p.id}')">🗑</button>` : ''}
+            </div>
+            <h4>${escapeHtml(p.judul)}</h4>
+            <p style="font-size:13px; color:var(--ink-soft);">${escapeHtml(p.isi)}</p>
+          </div>
+        `).join('') : `<div class="empty-state card"><h4>Belum ada pengumuman</h4><p>Tambahkan informasi penting untuk anggota.</p></div>`}
+      </div>
+
+      <div>
+        <div class="flexbar">
+          <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px;">🖼️ Galeri Kegiatan</h3>
+          ${canEdit() ? `<button class="btn btn-sm btn-primary" onclick="openGaleriForm()">+ Tambah Foto</button>` : ''}
+        </div>
+        ${DATA.galeri.length ? `
+          <div class="gallery-grid">
+            ${DATA.galeri.map(g=>`
+              <div class="gallery-item">
+                <img src="${escapeHtml(g.url)}" alt="${escapeHtml(g.caption||'')}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22120%22%3E%3Crect width=%22160%22 height=%22120%22 fill=%22%23d8c79f%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%235c4a32%22 font-size=%2212%22%3EGambar tidak ditemukan%3C/text%3E%3C/svg%3E'">
+                <div class="cap">
+                  <div>${escapeHtml(g.caption||'Tanpa keterangan')}</div>
+                  ${canEdit() ? `<button class="btn btn-icon btn-danger" style="margin-top:6px; padding:2px 8px;" onclick="deleteGaleri('${g.id}')">Hapus</button>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : `<div class="empty-state card"><h4>Galeri masih kosong</h4><p>Unggah foto kegiatan Pramuka langsung dari perangkat.</p></div>`}
+      </div>
+    </div>
+  `;
+}
+
+function openPengumumanForm(){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Tambah Pengumuman</h3>
+    <form onsubmit="submitPengumumanForm(event)">
+      <div class="field">
+        <label>Judul</label>
+        <input name="judul" required placeholder="Pengumpulan SKU Tahap 1">
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" required value="${todayISO()}">
+      </div>
+      <div class="field">
+        <label>Isi Pengumuman</label>
+        <textarea name="isi" rows="4" required placeholder="Tuliskan detail pengumuman di sini..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">Tambahkan</button>
+      </div>
+    </form>
+  `);
+}
+function submitPengumumanForm(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  DATA.pengumuman.push({
+    id: uid('pgm'),
+    judul: f.get('judul').trim(),
+    tanggal: f.get('tanggal'),
+    isi: f.get('isi').trim()
+  });
+  saveData();
+  closeModal();
+  showToast('Pengumuman ditambahkan');
+  renderInfo();
+  renderDashboard();
+}
+function deletePengumuman(id){
+  if(!guardOrToast(canEdit())) return;
+  DATA.pengumuman = DATA.pengumuman.filter(p=>p.id!==id);
+  saveData();
+  showToast('Pengumuman dihapus');
+  renderInfo();
+  renderDashboard();
+}
+
+function openGaleriForm(){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Tambah Foto ke Galeri</h3>
+    <p class="muted" style="margin-bottom:12px;">Pilih foto dari galeri/kamera perangkat. Foto akan dikompres otomatis agar tidak terlalu besar. Karena ruang penyimpanan terbatas, simpan maksimal sekitar 10-15 foto saja — hapus foto lama secara berkala.</p>
+    <form id="galeriForm" onsubmit="submitGaleriForm(event)">
+      <div class="field">
+        <label>Pilih Foto</label>
+        <input name="foto" id="galeriFotoInput" type="file" accept="image/*" required>
+      </div>
+      <div class="field" id="galeriPreviewWrap" style="display:none;">
+        <img id="galeriPreviewImg" style="max-width:100%; max-height:180px; border:2px solid var(--ink); border-radius:var(--radius); margin-top:4px;">
+      </div>
+      <div class="field">
+        <label>Keterangan</label>
+        <input name="caption" placeholder="Latihan rutin di lapangan, 12 Juni 2026">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary" id="galeriSubmitBtn">Tambahkan</button>
+      </div>
+    </form>
+  `);
+  document.getElementById('galeriFotoInput').addEventListener('change', async (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const btn = document.getElementById('galeriSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Memproses foto...';
+    try{
+      const compressed = await compressImageToDataUrl(file, 800, 0.6);
+      document.getElementById('galeriFotoInput').dataset.compressed = compressed;
+      document.getElementById('galeriPreviewImg').src = compressed;
+      document.getElementById('galeriPreviewWrap').style.display = 'block';
+    }catch(err){
+      showToast('Gagal memproses foto, coba foto lain');
+    }
+    btn.disabled = false; btn.textContent = 'Tambahkan';
+  });
+}
+
+/* Kompresi gambar di sisi browser sebelum disimpan sebagai base64,
+   supaya tidak cepat memenuhi batas localStorage (~5-10MB). */
+function compressImageToDataUrl(file, maxDim, quality){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        let { width, height } = img;
+        if(width > maxDim || height > maxDim){
+          if(width > height){ height = Math.round(height * (maxDim/width)); width = maxDim; }
+          else { width = Math.round(width * (maxDim/height)); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = ev.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------------- LOGO ORGANISASI ---------------- */
+async function handleLogoUpload(e){
+  if(!guardOrToast(isPembina())) return;
+  const file = e.target.files[0];
+  if(!file) return;
+  try{
+    const compressed = await compressImageToDataUrl(file, 200, 0.7);
+    const oldLogoSize = new Blob([DATA.pengaturan?.logoDataUrl || '']).size;
+    const newLogoSize = new Blob([compressed]).size;
+    if(!checkStorageHeadroom(newLogoSize - oldLogoSize)){ e.target.value=''; return; }
+    if(!DATA.pengaturan) DATA.pengaturan = {};
+    DATA.pengaturan.logoDataUrl = compressed;
+    saveData();
+    document.getElementById('headerLogoSlot').innerHTML = renderLogoHtml();
+    showToast('Logo berhasil diperbarui');
+    renderPengguna();
+  }catch(err){
+    showToast('Gagal memproses logo, coba gambar lain');
+  }
+  e.target.value = '';
+}
+function resetLogo(){
+  if(!guardOrToast(isPembina())) return;
+  if(!DATA.pengaturan) DATA.pengaturan = {};
+  DATA.pengaturan.logoDataUrl = '';
+  saveData();
+  document.getElementById('headerLogoSlot').innerHTML = renderLogoHtml();
+  showToast('Logo dikembalikan ke default');
+  renderPengguna();
+}
+function saveOrgIdentity(){
+  if(!guardOrToast(isPembina())) return;
+  if(!DATA.pengaturan) DATA.pengaturan = {};
+  DATA.pengaturan.namaOrganisasi = document.getElementById('orgNamaInput').value.trim();
+  DATA.pengaturan.alamat = document.getElementById('orgAlamatInput').value.trim();
+  saveData();
+  showToast('Identitas organisasi disimpan');
+}
+
+function submitGaleriForm(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const compressed = document.getElementById('galeriFotoInput').dataset.compressed;
+  if(!compressed){ showToast('Tunggu foto selesai diproses'); return; }
+  if(!checkStorageHeadroom(new Blob([compressed]).size)) return;
+  DATA.galeri.push({
+    id: uid('gal'),
+    url: compressed,
+    caption: f.get('caption').trim()
+  });
+  saveData();
+  closeModal();
+  showToast('Foto ditambahkan ke galeri');
+  renderInfo();
+}
+function deleteGaleri(id){
+  if(!guardOrToast(canEdit())) return;
+  DATA.galeri = DATA.galeri.filter(g=>g.id!==id);
+  saveData();
+  showToast('Foto dihapus');
+  renderInfo();
+}
+
+/* =========================================================
+   EKSPOR / IMPOR DATA (cadangan)
+   ========================================================= */
+function exportData(){
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pramuka-khoiriyah-backup-${todayISO()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Cadangan data berhasil diunduh');
+}
+function triggerImport(){
+  document.getElementById('importFile').click();
+}
+function importData(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt)=>{
+    try{
+      const parsed = JSON.parse(evt.target.result);
+      DATA = Object.assign({}, DEFAULT_DATA, parsed);
+      saveData();
+      showToast('Data berhasil diimpor');
+      renderDashboard();
+    }catch(err){
+      alert('Gagal membaca file cadangan. Pastikan file JSON valid.');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+/* =========================================================
+   LOGIN / HAK AKSES PENGGUNA
+   ========================================================= */
+const SESSION_KEY = 'pramuka_khoiriyah_session_v1';
+
+function renderLogoHtml(sizePx){
+  if(DATA.pengaturan?.logoDataUrl){
+    return `<img src="${DATA.pengaturan.logoDataUrl}" alt="Logo" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+  }
+  return `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C12 2 9 6 9 10C9 12.5 10.2 14 12 14C13.8 14 15 12.5 15 10C15 6 12 2 12 2Z" fill="#3d3120"/>
+      <path d="M12 14C12 14 10 17 7 18.5C5 19.5 4 21 4 21C4 21 7 22 10 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+      <path d="M12 14C12 14 14 17 17 18.5C19 19.5 20 21 20 21C20 21 17 22 14 20.5C12 19.5 12 17 12 17V14Z" fill="#3d3120"/>
+      <circle cx="12" cy="9" r="1.4" fill="#c08a2e"/>
+    </svg>
+  `;
+}
+
+function renderLoginScreen(){
+  const loading = document.getElementById('loadingScreen');
+  if(loading) loading.style.display = 'none';
+  const root = document.getElementById('loginScreen');
+  root.style.display = 'flex';
+  root.innerHTML = `
+    <div class="login-card">
+      <div class="login-badge">
+        ${renderLogoHtml()}
+      </div>
+      <span class="eyebrow" style="text-align:center; display:block;">Gerakan Pramuka · Gugus Depan</span>
+      <h1 class="login-title">SMK Khoiriyah Sumobito</h1>
+      <p class="login-sub">Masuk sesuai peran untuk mengakses sistem organisasi</p>
+
+      <div class="field" style="margin-top:22px;">
+        <label>Pilih Pengguna</label>
+        <select id="loginUserSelect">
+          ${DATA.pengguna.map(u=>`<option value="${u.id}">${escapeHtml(u.nama)} — ${PERAN_LABEL[u.peran]}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label>PIN</label>
+        <input type="password" id="loginPin" placeholder="Masukkan PIN" inputmode="numeric" autocomplete="off">
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px;" onclick="attemptLogin()">Masuk</button>
+      <p class="login-hint">PIN bawaan — Pembina: 1945 · Pengurus: 2024 · Anggota: 0000<br>Segera ubah PIN melalui menu Hak Akses setelah masuk.</p>
+    </div>
+  `;
+  document.getElementById('loginPin').addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') attemptLogin();
+  });
+}
+
+function attemptLogin(){
+  const userId = document.getElementById('loginUserSelect').value;
+  const pin = document.getElementById('loginPin').value.trim();
+  const user = DATA.pengguna.find(u=>u.id===userId);
+  if(!user || user.pin !== pin){
+    showLoginError('PIN salah. Coba lagi.');
+    return;
+  }
+  CURRENT_USER = user;
+  try{ sessionStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify({id:user.id})); }catch(e){}
+  enterApp();
+}
+function showLoginError(msg){
+  let err = document.getElementById('loginError');
+  if(!err){
+    err = document.createElement('p');
+    err.id = 'loginError';
+    err.className = 'login-error';
+    document.querySelector('.login-card').appendChild(err);
+  }
+  err.textContent = msg;
+  document.getElementById('loginPin').value = '';
+  document.getElementById('loginPin').focus();
+}
+
+function logout(){
+  CURRENT_USER = null;
+  try{ sessionStorage.removeItem(LOGIN_SESSION_KEY); }catch(e){}
+  document.getElementById('appRoot').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  renderLoginScreen();
+}
+
+function enterApp(){
+  const loading = document.getElementById('loadingScreen');
+  if(loading) loading.style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appRoot').style.display = 'block';
+  const logoSlot = document.getElementById('headerLogoSlot');
+  if(logoSlot) logoSlot.innerHTML = renderLogoHtml();
+  applyRoleVisibility();
+  renderDashboard();
+}
+
+// Menu yang TERLIHAT untuk masing-masing peran. Pembina melihat semua.
+const MENU_ACCESS_BY_ROLE = {
+  pembina:  ['dashboard','anggota','jadwal','sku','inventaris','arsip','keuangan','laporan','info','pengguna'],
+  pengurus: ['dashboard','anggota','jadwal','sku','inventaris','arsip','keuangan','laporan','info'],
+  anggota:  ['dashboard','jadwal','sku','info']
+};
+
+function applyRoleVisibility(){
+  const allowed = MENU_ACCESS_BY_ROLE[CURRENT_USER?.peran] || [];
+  document.querySelectorAll('.nav-btn[data-view]').forEach(btn=>{
+    const menu = btn.dataset.view;
+    btn.style.display = allowed.includes(menu) ? '' : 'none';
+  });
+
+  // Jika view yang sedang aktif tidak lagi diizinkan, pindah ke dashboard
+  const activeBtn = document.querySelector('.nav-btn.active');
+  if(activeBtn && !allowed.includes(activeBtn.dataset.view)){
+    setView('dashboard');
+  }
+
+  // Info user di topbar
+  const userBox = document.getElementById('topbarUser');
+  if(userBox){
+    userBox.innerHTML = `
+      <div class="user-pill">
+        <span class="avatar-circ" style="width:28px;height:28px;font-size:11px;">${initials(CURRENT_USER.nama)}</span>
+        <div>
+          <div style="font-weight:700;">${escapeHtml(CURRENT_USER.nama)}</div>
+          <div style="font-size:10px; opacity:.8;">${PERAN_LABEL[CURRENT_USER.peran]}</div>
+        </div>
+        <button class="btn btn-sm btn-ghost" style="color:var(--krem-soft); border-color:var(--khaki-light);" onclick="logout()">Keluar</button>
+      </div>
+    `;
+  }
+}
+
+const LOGIN_SESSION_KEY = 'pramuka_khoiriyah_login_session';
+
+function tryRestoreSession(){
+  try{
+    const raw = sessionStorage.getItem(LOGIN_SESSION_KEY);
+    if(!raw) return false;
+    const { id } = JSON.parse(raw);
+    const user = DATA.pengguna.find(u=>u.id===id);
+    if(!user) return false;
+    CURRENT_USER = user;
+    return true;
+  }catch(e){ return false; }
+}
+
+/* =========================================================
+   INVENTARIS
+   ========================================================= */
+let inventarisFilterKategori = '';
+
+function renderInventaris(){
+  const filtered = DATA.inventaris.filter(it=> !inventarisFilterKategori || it.kategori === inventarisFilterKategori);
+  const totalItem = DATA.inventaris.reduce((s,it)=> s + Number(it.jumlah||0), 0);
+  const rusak = DATA.inventaris.filter(it=> it.kondisi === 'Rusak').length;
+
+  document.getElementById('view-inventaris').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Aset Gugus Depan</span>
+        <h2>Inventaris Peralatan</h2>
+        <p>Catat dan pantau peralatan kegiatan Pramuka beserta kondisinya.</p>
+      </div>
+      ${canEdit() ? `<button class="btn btn-primary" onclick="openInventarisForm()">+ Tambah Barang</button>` : ''}
+    </div>
+
+    <div class="grid grid-stats" style="margin-bottom:20px;">
+      <div class="stat-card">
+        <div class="num">${DATA.inventaris.length}</div>
+        <div class="lbl">Jenis Barang</div>
+      </div>
+      <div class="stat-card green">
+        <div class="num">${totalItem}</div>
+        <div class="lbl">Total Unit</div>
+      </div>
+      <div class="stat-card red">
+        <div class="num">${rusak}</div>
+        <div class="lbl">Perlu Perbaikan</div>
+      </div>
+    </div>
+
+    <div class="flexbar">
+      <select style="max-width:240px;" onchange="inventarisFilterKategori=this.value; renderInventaris();">
+        <option value="">Semua kategori</option>
+        ${KATEGORI_INVENTARIS.map(k=>`<option value="${k}" ${inventarisFilterKategori===k?'selected':''}>${k}</option>`).join('')}
+      </select>
+    </div>
+
+    ${filtered.length ? `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nama Barang</th><th>Kategori</th><th>Jumlah</th><th>Kondisi</th><th>Lokasi Simpan</th>${canEdit()?'<th>Aksi</th>':''}</tr></thead>
+        <tbody>
+          ${filtered.map(it=>`
+            <tr>
+              <td><strong>${escapeHtml(it.nama)}</strong>${it.catatan?`<div class="muted">${escapeHtml(it.catatan)}</div>`:''}</td>
+              <td><span class="pill tingkat-pill">${escapeHtml(it.kategori)}</span></td>
+              <td>${escapeHtml(String(it.jumlah))} ${escapeHtml(it.satuan||'unit')}</td>
+              <td><span class="pill ${kondisiPillClass(it.kondisi)}">${escapeHtml(it.kondisi)}</span></td>
+              <td>${escapeHtml(it.lokasi||'-')}</td>
+              ${canEdit() ? `
+              <td>
+                <div class="icon-btn-row">
+                  <button class="btn btn-icon" title="Edit" onclick="openInventarisForm('${it.id}')">✎</button>
+                  <button class="btn btn-icon btn-danger" title="Hapus" onclick="deleteInventaris('${it.id}')">🗑</button>
+                </div>
+              </td>` : ''}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    ` : `<div class="empty-state card"><h4>Belum ada barang tercatat</h4><p>${canEdit() ? 'Klik "Tambah Barang" untuk mulai mencatat inventaris.' : 'Belum ada data inventaris untuk ditampilkan.'}</p></div>`}
+  `;
+}
+function kondisiPillClass(k){
+  if(k==='Baik') return 'pill-hadir';
+  if(k==='Rusak') return 'pill-alpha';
+  return 'pill-izin';
+}
+
+function openInventarisForm(id){
+  if(!guardOrToast(canEdit())) return;
+  const editing = id ? DATA.inventaris.find(x=>x.id===id) : null;
+  openModal(`
+    <h3>${editing ? 'Edit Barang' : 'Tambah Barang Inventaris'}</h3>
+    <form onsubmit="submitInventarisForm(event, '${id||''}')">
+      <div class="field">
+        <label>Nama Barang</label>
+        <input name="nama" required value="${editing?escapeHtml(editing.nama):''}" placeholder="Tenda Dome Kapasitas 4 Orang">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Kategori</label>
+          <select name="kategori">
+            ${KATEGORI_INVENTARIS.map(k=>`<option value="${k}" ${editing?.kategori===k?'selected':''}>${k}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field">
+          <label>Kondisi</label>
+          <select name="kondisi">
+            <option ${editing?.kondisi==='Baik'?'selected':''}>Baik</option>
+            <option ${editing?.kondisi==='Perlu Perbaikan'?'selected':''}>Perlu Perbaikan</option>
+            <option ${editing?.kondisi==='Rusak'?'selected':''}>Rusak</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Jumlah</label>
+          <input name="jumlah" type="number" min="0" required value="${editing?editing.jumlah:1}">
+        </div>
+        <div class="field">
+          <label>Satuan</label>
+          <input name="satuan" value="${editing?escapeHtml(editing.satuan||''):''}" placeholder="unit, buah, set">
+        </div>
+      </div>
+      <div class="field">
+        <label>Lokasi Simpan</label>
+        <input name="lokasi" value="${editing?escapeHtml(editing.lokasi||''):''}" placeholder="Gudang Sekretariat">
+      </div>
+      <div class="field">
+        <label>Catatan (opsional)</label>
+        <input name="catatan" value="${editing?escapeHtml(editing.catatan||''):''}" placeholder="Resleting agak macet, dsb.">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing?'Simpan Perubahan':'Tambah Barang'}</button>
+      </div>
+    </form>
+  `);
+}
+function submitInventarisForm(e, id){
+  e.preventDefault();
+  if(!guardOrToast(canEdit())) { closeModal(); return; }
+  const f = new FormData(e.target);
+  const payload = {
+    nama: f.get('nama').trim(),
+    kategori: f.get('kategori'),
+    kondisi: f.get('kondisi'),
+    jumlah: Number(f.get('jumlah'))||0,
+    satuan: f.get('satuan').trim(),
+    lokasi: f.get('lokasi').trim(),
+    catatan: f.get('catatan').trim()
+  };
+  if(id){
+    Object.assign(DATA.inventaris.find(x=>x.id===id), payload);
+    showToast('Data barang diperbarui');
+  }else{
+    payload.id = uid('inv');
+    DATA.inventaris.push(payload);
+    showToast('Barang ditambahkan ke inventaris');
+  }
+  saveData();
+  closeModal();
+  renderInventaris();
+}
+function deleteInventaris(id){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Hapus Barang?</h3>
+    <p class="muted">Yakin ingin menghapus data ini dari inventaris?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeleteInventaris('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeleteInventaris(id){
+  DATA.inventaris = DATA.inventaris.filter(x=>x.id!==id);
+  saveData();
+  closeModal();
+  showToast('Barang dihapus dari inventaris');
+  renderInventaris();
+}
+
+/* =========================================================
+   ARSIP DIGITAL
+   ========================================================= */
+let arsipFilterKategori = '';
+let arsipSearchQuery = '';
+
+function renderArsip(){
+  const filtered = DATA.arsip.filter(a=>{
+    const matchKategori = !arsipFilterKategori || a.kategori === arsipFilterKategori;
+    const matchSearch = !arsipSearchQuery || a.judul.toLowerCase().includes(arsipSearchQuery.toLowerCase());
+    return matchKategori && matchSearch;
+  }).sort((a,b)=> (b.tanggal||'').localeCompare(a.tanggal||''));
+
+  document.getElementById('view-arsip').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Dokumentasi Organisasi</span>
+        <h2>Arsip Digital</h2>
+        <p>Simpan referensi surat, sertifikat, SK, dan dokumentasi resmi Gugus Depan.</p>
+      </div>
+      ${canEdit() ? `<button class="btn btn-primary" onclick="openArsipForm()">+ Tambah Arsip</button>` : ''}
+    </div>
+
+    <div class="flexbar">
+      <input class="search-input" type="text" placeholder="Cari judul dokumen..." value="${escapeHtml(arsipSearchQuery)}" oninput="arsipSearchQuery=this.value; renderArsip();">
+      <select style="max-width:220px;" onchange="arsipFilterKategori=this.value; renderArsip();">
+        <option value="">Semua kategori</option>
+        ${KATEGORI_ARSIP.map(k=>`<option value="${k}" ${arsipFilterKategori===k?'selected':''}>${k}</option>`).join('')}
+      </select>
+    </div>
+
+    ${filtered.length ? `
+      <div class="grid grid-2">
+        ${filtered.map(a=>`
+          <div class="card">
+            <div class="flexbar" style="margin-bottom:6px;">
+              <span class="pill tingkat-pill">${escapeHtml(a.kategori)}</span>
+              ${canEdit() ? `
+              <div class="icon-btn-row">
+                <button class="btn btn-icon" title="Edit" onclick="openArsipForm('${a.id}')">✎</button>
+                <button class="btn btn-icon btn-danger" title="Hapus" onclick="deleteArsip('${a.id}')">🗑</button>
+              </div>` : ''}
+            </div>
+            <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px;">${escapeHtml(a.judul)}</h3>
+            <p class="muted" style="margin:4px 0;">${formatDateID(a.tanggal)} ${a.nomor?'· No. '+escapeHtml(a.nomor):''}</p>
+            ${a.deskripsi ? `<p style="font-size:13px; color:var(--ink-soft); margin-bottom:8px;">${escapeHtml(a.deskripsi)}</p>` : ''}
+            ${a.url ? `<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">🔗 Buka Dokumen</a>` : `<span class="muted">Tidak ada tautan dokumen</span>`}
+          </div>
+        `).join('')}
+      </div>
+    ` : `<div class="empty-state card"><h4>Arsip masih kosong</h4><p>${canEdit() ? 'Tambahkan referensi dokumen penting Gugus Depan.' : 'Belum ada dokumen arsip untuk ditampilkan.'}</p></div>`}
+  `;
+}
+
+function openArsipForm(id){
+  if(!guardOrToast(canEdit())) return;
+  const editing = id ? DATA.arsip.find(x=>x.id===id) : null;
+  openModal(`
+    <h3>${editing ? 'Edit Arsip' : 'Tambah Arsip Digital'}</h3>
+    <form onsubmit="submitArsipForm(event, '${id||''}')">
+      <div class="field">
+        <label>Judul Dokumen</label>
+        <input name="judul" required value="${editing?escapeHtml(editing.judul):''}" placeholder="SK Pengangkatan Pengurus Ambalan 2026">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Kategori</label>
+          <select name="kategori">
+            ${KATEGORI_ARSIP.map(k=>`<option value="${k}" ${editing?.kategori===k?'selected':''}>${k}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field">
+          <label>Tanggal Dokumen</label>
+          <input type="date" name="tanggal" value="${editing?editing.tanggal:todayISO()}">
+        </div>
+      </div>
+      <div class="field">
+        <label>Nomor Surat/Dokumen (opsional)</label>
+        <input name="nomor" value="${editing?escapeHtml(editing.nomor||''):''}" placeholder="012/Gudep-Khoiriyah/VI/2026">
+      </div>
+      <div class="field">
+        <label>Tautan Dokumen (URL — Google Drive, dsb.)</label>
+        <input name="url" type="url" value="${editing?escapeHtml(editing.url||''):''}" placeholder="https://drive.google.com/...">
+      </div>
+      <div class="field">
+        <label>Deskripsi (opsional)</label>
+        <textarea name="deskripsi" rows="3" placeholder="Ringkasan isi dokumen...">${editing?escapeHtml(editing.deskripsi||''):''}</textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing?'Simpan Perubahan':'Tambah Arsip'}</button>
+      </div>
+    </form>
+  `);
+}
+function submitArsipForm(e, id){
+  e.preventDefault();
+  if(!guardOrToast(canEdit())) { closeModal(); return; }
+  const f = new FormData(e.target);
+  const payload = {
+    judul: f.get('judul').trim(),
+    kategori: f.get('kategori'),
+    tanggal: f.get('tanggal'),
+    nomor: f.get('nomor').trim(),
+    url: f.get('url').trim(),
+    deskripsi: f.get('deskripsi').trim()
+  };
+  if(id){
+    Object.assign(DATA.arsip.find(x=>x.id===id), payload);
+    showToast('Arsip diperbarui');
+  }else{
+    payload.id = uid('ark');
+    DATA.arsip.push(payload);
+    showToast('Arsip ditambahkan');
+  }
+  saveData();
+  closeModal();
+  renderArsip();
+}
+function deleteArsip(id){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Hapus Arsip?</h3>
+    <p class="muted">Yakin ingin menghapus dokumen ini dari arsip?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeleteArsip('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeleteArsip(id){
+  DATA.arsip = DATA.arsip.filter(x=>x.id!==id);
+  saveData();
+  closeModal();
+  showToast('Arsip dihapus');
+  renderArsip();
+}
+
+/* =========================================================
+   HAK AKSES PENGGUNA (khusus Pembina)
+   ========================================================= */
+function renderStorageUsageBar(){
+  const sizeBytes = getCurrentDataSizeBytes();
+  const sizeMB = (sizeBytes / (1024*1024)).toFixed(2);
+  const persen = Math.min(100, Math.round((sizeBytes/STORAGE_SIZE_LIMIT_BYTES)*100));
+  const warnColor = persen >= 85 ? 'var(--merah)' : (persen >= 60 ? 'var(--gold)' : 'var(--hijau)');
+  return `
+    <p class="muted" style="margin-bottom:8px;">Terpakai <strong>${sizeMB} MB</strong> dari batas 1 MB (${persen}%). Foto di Galeri biasanya paling banyak memakai ruang.</p>
+    <div class="sku-progress-bar" style="height:14px;">
+      <div class="sku-progress-fill" style="width:${persen}%; background:${warnColor};"></div>
+    </div>
+    ${persen >= 70 ? `<p class="muted" style="margin-top:8px; color:var(--merah-dark);">Mendekati batas. Pertimbangkan menghapus foto-foto lama di menu Galeri & Info.</p>` : ''}
+  `;
+}
+
+function renderPengguna(){
+  if(!isPembina()){
+    document.getElementById('view-pengguna').innerHTML = `
+      <div class="empty-state card"><h4>Akses terbatas</h4><p>Hanya Pembina yang dapat mengelola hak akses pengguna.</p></div>
+    `;
+    return;
+  }
+  document.getElementById('view-pengguna').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Administrasi Sistem</span>
+        <h2>Hak Akses Pengguna</h2>
+        <p>Kelola peran dan PIN masuk untuk Pembina, Pengurus, dan Anggota.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openPenggunaForm()">+ Tambah Pengguna</button>
+    </div>
+
+    <div class="card" style="margin-bottom:16px; background:var(--krem);">
+      <p class="muted">⚠️ PIN di sini hanya untuk memisahkan tampilan menu antar peran (Pembina/Pengurus/Anggota), <strong>bukan keamanan data tingkat tinggi</strong>. Data organisasi tersimpan bersama dan bisa diakses siapa pun yang membuka link aplikasi ini — PIN tidak mencegah itu. Jangan gunakan PIN yang sama dengan akun penting lain.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px; margin-bottom:10px;">💾 Pemakaian Penyimpanan</h3>
+      ${renderStorageUsageBar()}
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3 style="font-family:var(--font-display); color:var(--tanah-dark); font-size:16px; margin-bottom:10px;">🏷️ Identitas Organisasi &amp; Kop Surat</h3>
+      <p class="muted" style="margin-bottom:14px;">Logo, nama, dan alamat ini akan tampil di header aplikasi serta kop surat laporan Excel/PDF.</p>
+      <div style="display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:64px; height:64px; border-radius:50%; overflow:hidden; border:2px solid var(--ink); flex-shrink:0;">
+            ${renderLogoHtml()}
+          </div>
+          <div>
+            <input type="file" id="logoUploadInput" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+            <div class="icon-btn-row">
+              <button class="btn btn-sm btn-primary" onclick="document.getElementById('logoUploadInput').click()">Unggah Logo</button>
+              ${DATA.pengaturan?.logoDataUrl ? `<button class="btn btn-sm btn-ghost" onclick="resetLogo()">Pakai Logo Default</button>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:16px;">
+        <div class="field">
+          <label>Nama Organisasi (untuk kop surat)</label>
+          <input id="orgNamaInput" value="${escapeHtml(DATA.pengaturan?.namaOrganisasi || '')}" placeholder="Gugus Depan Pramuka SMK Khoiriyah Sumobito">
+        </div>
+        <div class="field">
+          <label>Alamat (untuk kop surat)</label>
+          <input id="orgAlamatInput" value="${escapeHtml(DATA.pengaturan?.alamat || '')}" placeholder="Jl. Contoh No. 1, Sumobito, Jombang">
+        </div>
+      </div>
+      <button class="btn btn-sm btn-primary" onclick="saveOrgIdentity()">Simpan Identitas</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nama</th><th>Peran</th><th>PIN</th><th>Aksi</th></tr></thead>
+        <tbody>
+          ${DATA.pengguna.map(u=>`
+            <tr>
+              <td><strong>${escapeHtml(u.nama)}</strong>${u.id===CURRENT_USER.id?' <span class="pill pill-hadir">Sesi ini</span>':''}</td>
+              <td><span class="pill tingkat-pill">${PERAN_LABEL[u.peran]}</span></td>
+              <td><span class="muted" style="font-family:var(--font-mono);">${'•'.repeat(u.pin.length)}</span></td>
+              <td>
+                <div class="icon-btn-row">
+                  <button class="btn btn-icon" title="Edit" onclick="openPenggunaForm('${u.id}')">✎</button>
+                  ${DATA.pengguna.length > 1 ? `<button class="btn btn-icon btn-danger" title="Hapus" onclick="deletePengguna('${u.id}')">🗑</button>` : ''}
+                </div>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openPenggunaForm(id){
+  const editing = id ? DATA.pengguna.find(u=>u.id===id) : null;
+  openModal(`
+    <h3>${editing ? 'Edit Pengguna' : 'Tambah Pengguna'}</h3>
+    <form onsubmit="submitPenggunaForm(event, '${id||''}')">
+      <div class="field">
+        <label>Nama</label>
+        <input name="nama" required value="${editing?escapeHtml(editing.nama):''}" placeholder="Nama pengguna">
+      </div>
+      <div class="field">
+        <label>Peran</label>
+        <select name="peran">
+          <option value="pembina" ${editing?.peran==='pembina'?'selected':''}>Pembina (akses penuh)</option>
+          <option value="pengurus" ${editing?.peran==='pengurus'?'selected':''}>Pengurus (kelola data, tanpa hak akses)</option>
+          <option value="anggota" ${editing?.peran==='anggota'?'selected':''}>Anggota (lihat saja)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>PIN (4-6 digit)</label>
+        <input name="pin" required minlength="4" maxlength="6" value="${editing?escapeHtml(editing.pin):''}" placeholder="1234">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing?'Simpan Perubahan':'Tambah Pengguna'}</button>
+      </div>
+    </form>
+  `);
+}
+function submitPenggunaForm(e, id){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const payload = {
+    nama: f.get('nama').trim(),
+    peran: f.get('peran'),
+    pin: f.get('pin').trim()
+  };
+  if(id){
+    Object.assign(DATA.pengguna.find(u=>u.id===id), payload);
+    if(CURRENT_USER.id===id) CURRENT_USER = DATA.pengguna.find(u=>u.id===id);
+    showToast('Pengguna diperbarui');
+  }else{
+    payload.id = uid('usr');
+    DATA.pengguna.push(payload);
+    showToast('Pengguna ditambahkan');
+  }
+  saveData();
+  closeModal();
+  renderPengguna();
+}
+function deletePengguna(id){
+  if(DATA.pengguna.length <= 1) { showToast('Minimal harus ada satu pengguna'); return; }
+  if(id === CURRENT_USER.id){ showToast('Tidak bisa menghapus pengguna yang sedang masuk'); return; }
+  openModal(`
+    <h3>Hapus Pengguna?</h3>
+    <p class="muted">Yakin ingin menghapus akun ini?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeletePengguna('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeletePengguna(id){
+  DATA.pengguna = DATA.pengguna.filter(u=>u.id!==id);
+  saveData();
+  closeModal();
+  showToast('Pengguna dihapus');
+  renderPengguna();
+}
+
+/* =========================================================
+   KAS & KEUANGAN
+   ========================================================= */
+let keuanganFilterJenis = '';
+
+function hitungSaldo(){
+  return DATA.keuangan.reduce((saldo, t)=> t.jenis === 'masuk' ? saldo + t.jumlah : saldo - t.jumlah, 0);
+}
+function formatRupiah(n){
+  const angka = Math.abs(Math.round(n||0));
+  const formatted = angka.toLocaleString('id-ID');
+  return (n < 0 ? '-Rp ' : 'Rp ') + formatted;
+}
+
+function renderKeuangan(){
+  const sorted = [...DATA.keuangan].sort((a,b)=> b.tanggal.localeCompare(a.tanggal) || b.id.localeCompare(a.id));
+  const filtered = sorted.filter(t => !keuanganFilterJenis || t.jenis === keuanganFilterJenis);
+
+  const totalMasuk = DATA.keuangan.filter(t=>t.jenis==='masuk').reduce((s,t)=>s+t.jumlah,0);
+  const totalKeluar = DATA.keuangan.filter(t=>t.jenis==='keluar').reduce((s,t)=>s+t.jumlah,0);
+  const saldo = totalMasuk - totalKeluar;
+
+  document.getElementById('view-keuangan').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Bendahara Ambalan</span>
+        <h2>Kas &amp; Keuangan</h2>
+        <p>Catat kas masuk dan kas keluar Gugus Depan secara transparan.</p>
+      </div>
+      ${canEdit() ? `<button class="btn btn-primary" onclick="openKeuanganForm()">+ Catat Transaksi</button>` : ''}
+    </div>
+
+    <div class="grid grid-stats" style="margin-bottom:20px;">
+      <div class="stat-card green">
+        <div class="num" style="font-size:22px;">${formatRupiah(totalMasuk)}</div>
+        <div class="lbl">Total Kas Masuk</div>
+      </div>
+      <div class="stat-card red">
+        <div class="num" style="font-size:22px;">${formatRupiah(totalKeluar)}</div>
+        <div class="lbl">Total Kas Keluar</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="num" style="font-size:22px;">${formatRupiah(saldo)}</div>
+        <div class="lbl">Saldo Kas Saat Ini</div>
+      </div>
+    </div>
+
+    <div class="flexbar">
+      <select style="max-width:200px;" onchange="keuanganFilterJenis=this.value; renderKeuangan();">
+        <option value="">Semua transaksi</option>
+        <option value="masuk" ${keuanganFilterJenis==='masuk'?'selected':''}>Kas Masuk</option>
+        <option value="keluar" ${keuanganFilterJenis==='keluar'?'selected':''}>Kas Keluar</option>
+      </select>
+    </div>
+
+    ${filtered.length ? `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jenis</th><th>Jumlah</th>${canEdit()?'<th>Aksi</th>':''}</tr></thead>
+        <tbody>
+          ${filtered.map(t=>`
+            <tr>
+              <td>${formatDateID(t.tanggal)}</td>
+              <td><strong>${escapeHtml(t.keterangan)}</strong></td>
+              <td><span class="pill tingkat-pill">${escapeHtml(t.kategori)}</span></td>
+              <td><span class="pill ${t.jenis==='masuk'?'pill-hadir':'pill-alpha'}">${t.jenis==='masuk'?'Masuk':'Keluar'}</span></td>
+              <td style="font-family:var(--font-mono); color:${t.jenis==='masuk'?'var(--hijau-dark)':'var(--merah-dark)'};">
+                ${t.jenis==='masuk'?'+':'-'} ${formatRupiah(t.jumlah)}
+              </td>
+              ${canEdit() ? `
+              <td>
+                <div class="icon-btn-row">
+                  <button class="btn btn-icon" title="Edit" onclick="openKeuanganForm('${t.id}')">✎</button>
+                  <button class="btn btn-icon btn-danger" title="Hapus" onclick="deleteKeuangan('${t.id}')">🗑</button>
+                </div>
+              </td>` : ''}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    ` : `<div class="empty-state card"><h4>Belum ada transaksi</h4><p>${canEdit() ? 'Klik "Catat Transaksi" untuk mulai mencatat kas masuk/keluar.' : 'Belum ada data keuangan untuk ditampilkan.'}</p></div>`}
+  `;
+}
+
+function openKeuanganForm(id){
+  if(!guardOrToast(canEdit())) return;
+  const editing = id ? DATA.keuangan.find(t=>t.id===id) : null;
+  const jenisAwal = editing?.jenis || 'masuk';
+  openModal(`
+    <h3>${editing ? 'Edit Transaksi' : 'Catat Transaksi Kas'}</h3>
+    <form onsubmit="submitKeuanganForm(event, '${id||''}')">
+      <div class="field">
+        <label>Jenis Transaksi</label>
+        <select name="jenis" id="keuanganJenisSelect" onchange="updateKategoriKeuangan(this.value)">
+          <option value="masuk" ${jenisAwal==='masuk'?'selected':''}>Kas Masuk</option>
+          <option value="keluar" ${jenisAwal==='keluar'?'selected':''}>Kas Keluar</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Keterangan</label>
+        <input name="keterangan" required value="${editing?escapeHtml(editing.keterangan):''}" placeholder="Iuran bulan Juni 2026">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tanggal</label>
+          <input type="date" name="tanggal" required value="${editing?editing.tanggal:todayISO()}">
+        </div>
+        <div class="field">
+          <label>Jumlah (Rp)</label>
+          <input type="number" name="jumlah" required min="0" step="500" value="${editing?editing.jumlah:''}" placeholder="50000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Kategori</label>
+        <select name="kategori" id="keuanganKategoriSelect">
+          ${(jenisAwal==='masuk' ? KATEGORI_KAS_MASUK : KATEGORI_KAS_KELUAR).map(k=>`<option value="${k}" ${editing?.kategori===k?'selected':''}>${k}</option>`).join('')}
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${editing?'Simpan Perubahan':'Catat Transaksi'}</button>
+      </div>
+    </form>
+  `);
+}
+function updateKategoriKeuangan(jenis){
+  const sel = document.getElementById('keuanganKategoriSelect');
+  const list = jenis === 'masuk' ? KATEGORI_KAS_MASUK : KATEGORI_KAS_KELUAR;
+  sel.innerHTML = list.map(k=>`<option value="${k}">${k}</option>`).join('');
+}
+function submitKeuanganForm(e, id){
+  e.preventDefault();
+  if(!guardOrToast(canEdit())) return;
+  const f = new FormData(e.target);
+  const payload = {
+    jenis: f.get('jenis'),
+    keterangan: f.get('keterangan').trim(),
+    tanggal: f.get('tanggal'),
+    jumlah: parseFloat(f.get('jumlah')) || 0,
+    kategori: f.get('kategori')
+  };
+  if(id){
+    Object.assign(DATA.keuangan.find(t=>t.id===id), payload);
+    showToast('Transaksi diperbarui');
+  }else{
+    payload.id = uid('kas');
+    DATA.keuangan.push(payload);
+    showToast('Transaksi dicatat');
+  }
+  saveData();
+  closeModal();
+  renderKeuangan();
+}
+function deleteKeuangan(id){
+  if(!guardOrToast(canEdit())) return;
+  openModal(`
+    <h3>Hapus Transaksi?</h3>
+    <p class="muted">Yakin ingin menghapus transaksi ini? Saldo kas akan ikut berubah.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-accent" onclick="confirmDeleteKeuangan('${id}')">Hapus</button>
+    </div>
+  `);
+}
+function confirmDeleteKeuangan(id){
+  DATA.keuangan = DATA.keuangan.filter(t=>t.id!==id);
+  saveData();
+  closeModal();
+  showToast('Transaksi dihapus');
+  renderKeuangan();
+}
+
+/* =========================================================
+   LAPORAN & STATISTIK
+   ========================================================= */
+function renderLaporan(){
+  const totalAnggota = DATA.anggota.length;
+  let totalHadir=0, totalRecord=0;
+  Object.values(DATA.absensi).forEach(rec=>{
+    Object.values(rec).forEach(status=>{ totalRecord++; if(status==='Hadir') totalHadir++; });
+  });
+  const persenHadir = totalRecord ? Math.round((totalHadir/totalRecord)*100) : 0;
+  const avgSku = totalAnggota ? Math.round(DATA.anggota.reduce((s,a)=>s+skuOverallPercent(a.id),0)/totalAnggota) : 0;
+  const saldo = hitungSaldo();
+  const totalMasuk = DATA.keuangan.filter(t=>t.jenis==='masuk').reduce((s,t)=>s+t.jumlah,0);
+  const totalKeluar = DATA.keuangan.filter(t=>t.jenis==='keluar').reduce((s,t)=>s+t.jumlah,0);
+
+  document.getElementById('view-laporan').innerHTML = `
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">Rekap &amp; Ekspor Data</span>
+        <h2>Laporan &amp; Statistik</h2>
+        <p>Ringkasan kondisi Gugus Depan, siap diunduh sebagai Excel atau PDF.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-stats" style="margin-bottom:24px;">
+      <div class="stat-card"><div class="num">${totalAnggota}</div><div class="lbl">Anggota Aktif</div></div>
+      <div class="stat-card gold"><div class="num">${persenHadir}%</div><div class="lbl">Rata-rata Kehadiran</div></div>
+      <div class="stat-card red"><div class="num">${avgSku}%</div><div class="lbl">Rata-rata Capaian SKU</div></div>
+      <div class="stat-card green"><div class="num" style="font-size:20px;">${formatRupiah(saldo)}</div><div class="lbl">Saldo Kas</div></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3 style="font-family:var(--font-display); color:var(--tanah-dark); margin-bottom:12px;">📋 Laporan Anggota &amp; SKU</h3>
+        <p class="muted" style="margin-bottom:14px;">Daftar anggota lengkap dengan tingkat, kontak, dan persentase capaian SKU.</p>
+        <div class="icon-btn-row">
+          <button class="btn btn-sm" onclick="exportAnggotaExcel()">⬇ Excel (.xlsx)</button>
+          <button class="btn btn-sm" onclick="exportAnggotaPDF()">⬇ PDF</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-family:var(--font-display); color:var(--tanah-dark); margin-bottom:12px;">🗓️ Laporan Absensi Kegiatan</h3>
+        <p class="muted" style="margin-bottom:14px;">Rekap kehadiran semua anggota di setiap kegiatan yang tercatat.</p>
+        <div class="icon-btn-row">
+          <button class="btn btn-sm" onclick="exportAbsensiExcel()">⬇ Excel (.xlsx)</button>
+          <button class="btn btn-sm" onclick="exportAbsensiPDF()">⬇ PDF</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-family:var(--font-display); color:var(--tanah-dark); margin-bottom:12px;">💰 Laporan Kas &amp; Keuangan</h3>
+        <p class="muted" style="margin-bottom:14px;">Rincian kas masuk (Rp ${totalMasuk.toLocaleString('id-ID')}) dan kas keluar (Rp ${totalKeluar.toLocaleString('id-ID')}), beserta saldo akhir.</p>
+        <div class="icon-btn-row">
+          <button class="btn btn-sm" onclick="exportKeuanganExcel()">⬇ Excel (.xlsx)</button>
+          <button class="btn btn-sm" onclick="exportKeuanganPDF()">⬇ PDF</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-family:var(--font-display); color:var(--tanah-dark); margin-bottom:12px;">📦 Laporan Inventaris</h3>
+        <p class="muted" style="margin-bottom:14px;">Daftar lengkap peralatan, kondisi, dan lokasi penyimpanan.</p>
+        <div class="icon-btn-row">
+          <button class="btn btn-sm" onclick="exportInventarisExcel()">⬇ Excel (.xlsx)</button>
+          <button class="btn btn-sm" onclick="exportInventarisPDF()">⬇ PDF</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function ensureLibLoaded(libCheck, libName){
+  if(!libCheck()){
+    showToast(`Gagal memuat pustaka ${libName}. Pastikan perangkat terhubung internet, lalu coba lagi.`);
+    return false;
+  }
+  return true;
+}
+
+/* ---------------- KOP SURAT UNTUK LAPORAN ---------------- */
+function getOrgIdentity(){
+  return {
+    nama: DATA.pengaturan?.namaOrganisasi || 'Gugus Depan Pramuka SMK Khoiriyah Sumobito',
+    alamat: DATA.pengaturan?.alamat || '',
+    logo: DATA.pengaturan?.logoDataUrl || ''
+  };
+}
+
+/* Menambahkan kop surat (logo + nama + alamat + garis pembatas) ke dokumen jsPDF.
+   Mengembalikan posisi Y tempat tabel laporan sebaiknya dimulai. */
+function addPdfKopSurat(doc, judulLaporan){
+  const org = getOrgIdentity();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let textX = 14;
+  const logoSize = 18;
+
+  if(org.logo){
+    try{
+      doc.addImage(org.logo, 'JPEG', 14, 10, logoSize, logoSize);
+      textX = 14 + logoSize + 5;
+    }catch(e){ /* jika gagal decode gambar, lanjut tanpa logo */ }
+  }
+
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text(org.nama, textX, 16);
+  doc.setFont(undefined, 'normal');
+  doc.setFontSize(8.5);
+  if(org.alamat) doc.text(org.alamat, textX, 21);
+  doc.setFontSize(8);
+  doc.setTextColor(110,100,80);
+  doc.text(`Diunduh: ${new Date().toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'})}`, textX, org.alamat ? 25.5 : 21);
+  doc.setTextColor(0,0,0);
+
+  const lineY = 30;
+  doc.setDrawColor(92,74,50);
+  doc.setLineWidth(0.6);
+  doc.line(14, lineY, pageWidth-14, lineY);
+
+  doc.setFontSize(12.5);
+  doc.setFont(undefined, 'bold');
+  doc.text(judulLaporan, 14, lineY + 7);
+  doc.setFont(undefined, 'normal');
+
+  return lineY + 12;
+}
+
+/* Menambahkan baris kop surat di atas data pada sheet Excel.
+   numCols dipakai untuk lebar merge judul. Mengembalikan array baris
+   kop yang harus diselipkan sebelum header tabel. */
+function buildExcelKopRows(judulLaporan){
+  const org = getOrgIdentity();
+  const rows = [
+    [org.nama],
+  ];
+  if(org.alamat) rows.push([org.alamat]);
+  rows.push([judulLaporan]);
+  rows.push([`Diunduh: ${new Date().toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'})}`]);
+  rows.push([]); // baris kosong pemisah sebelum header tabel
+  return rows;
+}
+
+/* Membuat worksheet dengan kop surat (nama organisasi, alamat, judul) di atas,
+   lalu tabel data di bawahnya. Catatan: SheetJS Community Edition (versi gratis
+   yang dipakai di sini) tidak mendukung penyisipan gambar logo ke dalam sheet,
+   jadi kop Excel berupa teks saja. Logo bergambar tampil lengkap di kop PDF. */
+function buildSheetWithKop(rows, judulLaporan){
+  const kopRows = buildExcelKopRows(judulLaporan);
+  const headerRow = Object.keys(rows[0]);
+  const dataRows = rows.map(r=>Object.values(r));
+  const aoa = [...kopRows, headerRow, ...dataRows];
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols'] = headerRow.map(()=>({ wch: 18 }));
+  return ws;
+}
+
+function ensureLibLoadedSilent(){ return !!window.XLSX; }
+
+/* ---- Export Anggota & SKU ---- */
+function buildAnggotaRows(){
+  return DATA.anggota.map(a=>({
+    'Nama': a.nama,
+    'NIS': a.nis||'-',
+    'Kelas': a.kelas||'-',
+    'Tingkat': SKU_TEMPLATE[a.tingkat]?.label || '-',
+    'No. HP': a.hp||'-',
+    'Jabatan': a.jabatan||'-',
+    'Capaian SKU (%)': skuOverallPercent(a.id)
+  }));
+}
+function exportAnggotaExcel(){
+  if(!ensureLibLoaded(()=>window.XLSX, 'Excel')) return;
+  const rows = buildAnggotaRows();
+  if(!rows.length){ showToast('Belum ada data anggota'); return; }
+  const ws = buildSheetWithKop(rows, 'Laporan Anggota & Capaian SKU');
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Anggota & SKU');
+  XLSX.writeFile(wb, `Laporan-Anggota-SKU-${todayISO()}.xlsx`);
+  showToast('Laporan Excel diunduh');
+}
+function exportAnggotaPDF(){
+  if(!ensureLibLoaded(()=>window.jspdf, 'PDF')) return;
+  const rows = buildAnggotaRows();
+  if(!rows.length){ showToast('Belum ada data anggota'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const startY = addPdfKopSurat(doc, 'Laporan Anggota & Capaian SKU');
+  doc.autoTable({
+    startY,
+    head: [Object.keys(rows[0])],
+    body: rows.map(r=>Object.values(r)),
+    styles:{ fontSize:8 },
+    headStyles:{ fillColor:[92,74,50] }
+  });
+  doc.save(`Laporan-Anggota-SKU-${todayISO()}.pdf`);
+  showToast('Laporan PDF diunduh');
+}
+
+/* ---- Export Absensi ---- */
+function buildAbsensiRows(){
+  const rows = [];
+  const sortedKegiatan = [...DATA.kegiatan].sort((a,b)=> a.tanggal.localeCompare(b.tanggal));
+  sortedKegiatan.forEach(k=>{
+    const rec = DATA.absensi[k.id] || {};
+    DATA.anggota.forEach(a=>{
+      rows.push({
+        'Tanggal': formatDateID(k.tanggal),
+        'Kegiatan': k.nama,
+        'Nama Anggota': a.nama,
+        'Tingkat': SKU_TEMPLATE[a.tingkat]?.label || '-',
+        'Status': rec[a.id] || 'Belum tercatat'
+      });
+    });
+  });
+  return rows;
+}
+function exportAbsensiExcel(){
+  if(!ensureLibLoaded(()=>window.XLSX, 'Excel')) return;
+  const rows = buildAbsensiRows();
+  if(!rows.length){ showToast('Belum ada data absensi'); return; }
+  const ws = buildSheetWithKop(rows, 'Laporan Absensi Kegiatan');
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Absensi');
+  XLSX.writeFile(wb, `Laporan-Absensi-${todayISO()}.xlsx`);
+  showToast('Laporan Excel diunduh');
+}
+function exportAbsensiPDF(){
+  if(!ensureLibLoaded(()=>window.jspdf, 'PDF')) return;
+  const rows = buildAbsensiRows();
+  if(!rows.length){ showToast('Belum ada data absensi'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const startY = addPdfKopSurat(doc, 'Laporan Absensi Kegiatan');
+  doc.autoTable({
+    startY,
+    head: [Object.keys(rows[0])],
+    body: rows.map(r=>Object.values(r)),
+    styles:{ fontSize:8 },
+    headStyles:{ fillColor:[92,74,50] }
+  });
+  doc.save(`Laporan-Absensi-${todayISO()}.pdf`);
+  showToast('Laporan PDF diunduh');
+}
+
+/* ---- Export Keuangan ---- */
+function buildKeuanganRows(){
+  const sorted = [...DATA.keuangan].sort((a,b)=> a.tanggal.localeCompare(b.tanggal));
+  let saldo = 0;
+  return sorted.map(t=>{
+    saldo += t.jenis === 'masuk' ? t.jumlah : -t.jumlah;
+    return {
+      'Tanggal': formatDateID(t.tanggal),
+      'Keterangan': t.keterangan,
+      'Kategori': t.kategori,
+      'Jenis': t.jenis === 'masuk' ? 'Kas Masuk' : 'Kas Keluar',
+      'Jumlah (Rp)': t.jumlah,
+      'Saldo Berjalan (Rp)': saldo
+    };
+  });
+}
+function exportKeuanganExcel(){
+  if(!ensureLibLoaded(()=>window.XLSX, 'Excel')) return;
+  const rows = buildKeuanganRows();
+  if(!rows.length){ showToast('Belum ada data transaksi'); return; }
+  const ws = buildSheetWithKop(rows, 'Laporan Kas & Keuangan');
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Kas & Keuangan');
+  XLSX.writeFile(wb, `Laporan-Keuangan-${todayISO()}.xlsx`);
+  showToast('Laporan Excel diunduh');
+}
+function exportKeuanganPDF(){
+  if(!ensureLibLoaded(()=>window.jspdf, 'PDF')) return;
+  const rows = buildKeuanganRows();
+  if(!rows.length){ showToast('Belum ada data transaksi'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const startY = addPdfKopSurat(doc, 'Laporan Kas & Keuangan');
+  doc.autoTable({
+    startY,
+    head: [Object.keys(rows[0])],
+    body: rows.map(r=>Object.values(r)),
+    styles:{ fontSize:8 },
+    headStyles:{ fillColor:[92,74,50] }
+  });
+  doc.save(`Laporan-Keuangan-${todayISO()}.pdf`);
+  showToast('Laporan PDF diunduh');
+}
+
+/* ---- Export Inventaris ---- */
+function buildInventarisRows(){
+  return DATA.inventaris.map(it=>({
+    'Nama Barang': it.nama,
+    'Kategori': it.kategori,
+    'Jumlah': it.jumlah,
+    'Satuan': it.satuan||'unit',
+    'Kondisi': it.kondisi,
+    'Lokasi Simpan': it.lokasi||'-',
+    'Catatan': it.catatan||'-'
+  }));
+}
+function exportInventarisExcel(){
+  if(!ensureLibLoaded(()=>window.XLSX, 'Excel')) return;
+  const rows = buildInventarisRows();
+  if(!rows.length){ showToast('Belum ada data inventaris'); return; }
+  const ws = buildSheetWithKop(rows, 'Laporan Inventaris Peralatan');
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Inventaris');
+  XLSX.writeFile(wb, `Laporan-Inventaris-${todayISO()}.xlsx`);
+  showToast('Laporan Excel diunduh');
+}
+function exportInventarisPDF(){
+  if(!ensureLibLoaded(()=>window.jspdf, 'PDF')) return;
+  const rows = buildInventarisRows();
+  if(!rows.length){ showToast('Belum ada data inventaris'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const startY = addPdfKopSurat(doc, 'Laporan Inventaris Peralatan');
+  doc.autoTable({
+    startY,
+    head: [Object.keys(rows[0])],
+    body: rows.map(r=>Object.values(r)),
+    styles:{ fontSize:8 },
+    headStyles:{ fillColor:[92,74,50] }
+  });
+  doc.save(`Laporan-Inventaris-${todayISO()}.pdf`);
+  showToast('Laporan PDF diunduh');
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+async function initApp(){
+  DATA = await loadData();
+  DATA_READY = true;
+
+  if(tryRestoreSession()){
+    enterApp();
+  }else{
+    renderLoginScreen();
+  }
+
+  // Realtime sync: begitu ada perubahan dari perangkat lain di Supabase,
+  // otomatis tertarik tanpa perlu polling manual.
+  setupRealtimeSync();
+  // Fallback tambahan saat tab kembali aktif/difokuskan (jaga-jaga jika koneksi realtime putus)
+  window.addEventListener('focus', refreshFromRemote);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'visible') refreshFromRemote();
+  });
+}
+
+initApp();
+
+
+</script>
+</body>
+</html>
